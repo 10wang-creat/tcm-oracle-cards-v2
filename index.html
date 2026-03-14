@@ -1,240 +1,132 @@
-<!DOCTYPE html>\n<html lang="zh-TW">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">\n<title>本草心語 ─ 中藥心靈牌卡</title>\n<link rel="preconnect" href="https://fonts.googleapis.com">\n<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=LXGW+WenKai+TC:wght@300;400;700&display=swap" rel="stylesheet">\n<style>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>本草心語 ─ 中藥心靈牌卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=LXGW+WenKai+TC:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#c9a96e;--gold-lt:#e8d5a8;--gold-dk:#8a6f3e;--cream:#f5f0e6;--ink:#2a2520;--ink-lt:#5a524a}
-html,body{width:100%;min-height:100dvh;font-family:'Noto Sans TC','LXGW WenKai TC',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+:root{--g:#c9a96e;--gl:#e8d5a8;--gd:#8a6f3e;--cr:#f5f0e6;--i:#2a2520;--il:#5a524a}
+html,body{width:100%;min-height:100dvh;font-family:'Noto Sans TC','LXGW WenKai TC',sans-serif;background:var(--cr);color:var(--i);overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(201,169,110,.07) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 90%,rgba(90,74,106,.05) 0%,transparent 60%);pointer-events:none;z-index:0}
-.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;transition:opacity .5s,transform .5s;z-index:1}
-.screen.hidden{opacity:0;pointer-events:none;transform:translateY(16px)}.screen.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
-.brand{display:flex;flex-direction:column;align-items:center;margin-bottom:36px}
-.brand .glyph{font-family:'Noto Serif TC',serif;font-size:clamp(3.2rem,9vw,5.5rem);font-weight:900;letter-spacing:.12em;background:linear-gradient(160deg,var(--gold-dk),var(--gold) 40%,var(--gold-lt) 70%,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 2px 8px rgba(201,169,110,.3));line-height:1.3}
-.brand .sub{font-family:'LXGW WenKai TC',serif;font-size:clamp(.8rem,2.4vw,1.05rem);color:var(--ink-lt);letter-spacing:.35em;margin-top:6px;font-weight:300}
-.tagline{font-family:'LXGW WenKai TC',serif;font-size:clamp(.88rem,2.4vw,1.02rem);color:var(--ink-lt);text-align:center;line-height:2;margin-bottom:44px;max-width:340px}
-.cta{display:flex;align-items:center;justify-content:center;width:192px;height:52px;border:1.5px solid var(--gold);border-radius:999px;background:linear-gradient(135deg,rgba(201,169,110,.08),rgba(201,169,110,.02));backdrop-filter:blur(8px);cursor:pointer;transition:all .35s;font-family:'Noto Serif TC',serif;font-size:1rem;letter-spacing:.2em;color:var(--gold-dk)}
-.cta:hover{background:linear-gradient(135deg,var(--gold),var(--gold-dk));color:var(--cream);box-shadow:0 8px 28px rgba(201,169,110,.35);transform:translateY(-2px)}
-.nav-row{display:flex;gap:12px;margin-top:16px}
-.nav-link{font-family:'LXGW WenKai TC',serif;font-size:.85rem;color:var(--ink-lt);cursor:pointer;border:none;background:none;letter-spacing:.1em;opacity:.6;transition:opacity .3s}.nav-link:hover{opacity:1;color:var(--gold-dk)}
-.draw-inst{font-family:'LXGW WenKai TC',serif;font-size:clamp(.95rem,2.8vw,1.15rem);color:var(--ink-lt);letter-spacing:.12em;margin-bottom:32px;text-align:center;line-height:1.9}
-.card-spread{position:relative;width:200px;height:280px;cursor:pointer;perspective:800px}
-.card-back{width:100%;height:100%;border-radius:16px;background:linear-gradient(145deg,#3a3228,#2a2520 30%,#1a1814);border:1.5px solid var(--gold);box-shadow:0 20px 60px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
-.card-back::before{content:'';position:absolute;inset:8px;border:1px solid rgba(201,169,110,.18);border-radius:12px;z-index:1}
-.card-back-img{width:100%;height:100%;object-fit:cover;border-radius:16px;position:absolute;inset:0}
-.card-back-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px}
-.card-back-inner .icon{font-size:2.4rem;opacity:.7;filter:drop-shadow(0 0 10px rgba(201,169,110,.35))}
-.card-back-inner .label{font-family:'Noto Serif TC',serif;font-size:1.05rem;letter-spacing:.25em;color:var(--gold);text-shadow:0 1px 6px rgba(0,0,0,.6)}
-.card-spread.floating .card-back{animation:cf 3s ease-in-out infinite}
+.sc{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;transition:opacity .5s,transform .5s;z-index:1}
+.sc.h{opacity:0;pointer-events:none;transform:translateY(16px)}.sc.v{opacity:1;pointer-events:auto;transform:translateY(0)}
+.br{display:flex;flex-direction:column;align-items:center;margin-bottom:36px}
+.br .gl{font-family:'Noto Serif TC',serif;font-size:clamp(3.2rem,9vw,5.5rem);font-weight:900;letter-spacing:.12em;background:linear-gradient(160deg,var(--gd),var(--g) 40%,var(--gl) 70%,var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 2px 8px rgba(201,169,110,.3));line-height:1.3}
+.br .sb{font-family:'LXGW WenKai TC',serif;font-size:clamp(.8rem,2.4vw,1.05rem);color:var(--il);letter-spacing:.35em;margin-top:6px;font-weight:300}
+.tg{font-family:'LXGW WenKai TC',serif;font-size:clamp(.88rem,2.4vw,1.02rem);color:var(--il);text-align:center;line-height:2;margin-bottom:44px;max-width:340px}
+.ct{display:flex;align-items:center;justify-content:center;width:192px;height:52px;border:1.5px solid var(--g);border-radius:999px;background:linear-gradient(135deg,rgba(201,169,110,.08),rgba(201,169,110,.02));backdrop-filter:blur(8px);cursor:pointer;transition:all .35s;font-family:'Noto Serif TC',serif;font-size:1rem;letter-spacing:.2em;color:var(--gd)}
+.ct:hover{background:linear-gradient(135deg,var(--g),var(--gd));color:var(--cr);box-shadow:0 8px 28px rgba(201,169,110,.35);transform:translateY(-2px)}
+.nr{display:flex;gap:12px;margin-top:16px}
+.nl{font-family:'LXGW WenKai TC',serif;font-size:.85rem;color:var(--il);cursor:pointer;border:none;background:none;letter-spacing:.1em;opacity:.6;transition:opacity .3s}.nl:hover{opacity:1;color:var(--gd)}
+.di{font-family:'LXGW WenKai TC',serif;font-size:clamp(.95rem,2.8vw,1.15rem);color:var(--il);letter-spacing:.12em;margin-bottom:32px;text-align:center;line-height:1.9}
+.cs{position:relative;width:200px;height:280px;cursor:pointer;perspective:800px}
+.cb{width:100%;height:100%;border-radius:16px;background:linear-gradient(145deg,#3a3228,#2a2520 30%,#1a1814);border:1.5px solid var(--g);box-shadow:0 20px 60px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.cb::before{content:'';position:absolute;inset:8px;border:1px solid rgba(201,169,110,.18);border-radius:12px;z-index:1}
+.cbi{width:100%;height:100%;object-fit:cover;border-radius:16px;position:absolute;inset:0}
+.cbn{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cbn .ic{font-size:2.4rem;opacity:.7}.cbn .lb{font-family:'Noto Serif TC',serif;font-size:1.05rem;letter-spacing:.25em;color:var(--g);text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.cs.fl .cb{animation:cf 3s ease-in-out infinite}
 @keyframes cf{0%,100%{transform:translateY(0) rotateY(0)}50%{transform:translateY(-7px) rotateY(-2deg)}}
-.card-spread:hover .card-back{transform:translateY(-4px) rotateY(-3deg);box-shadow:0 26px 65px rgba(0,0,0,.28),0 0 36px rgba(201,169,110,.12)}
-.card-spread.drawing .card-back{animation:cs 1.1s ease-in-out}
-@keyframes cs{0%{transform:rotateY(0) scale(1)}30%{transform:rotateY(180deg) scale(.95)}60%{transform:rotateY(360deg) scale(1.04)}80%{transform:rotateY(540deg) scale(1);filter:brightness(1.25)}100%{transform:rotateY(720deg) scale(1);filter:brightness(1)}}
-.draw-hint{font-family:'LXGW WenKai TC',serif;font-size:.82rem;color:rgba(90,82,74,.45);margin-top:24px;letter-spacing:.1em;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:.35}50%{opacity:.75}}
-#result-screen{justify-content:flex-start;padding-top:28px;overflow-y:auto}
-.result-wrap{width:100%;max-width:460px;display:flex;flex-direction:column;align-items:center}
-.r-card{width:280px;border-radius:18px;overflow:hidden;box-shadow:0 18px 55px rgba(0,0,0,.14),0 0 0 1px rgba(201,169,110,.18);animation:cr .7s ease-out;flex-shrink:0}
+.cs:hover .cb{transform:translateY(-4px) rotateY(-3deg);box-shadow:0 26px 65px rgba(0,0,0,.28)}
+.cs.dr .cb{animation:csa 1.1s ease-in-out}
+@keyframes csa{0%{transform:rotateY(0) scale(1)}30%{transform:rotateY(180deg) scale(.95)}60%{transform:rotateY(360deg) scale(1.04)}80%{transform:rotateY(540deg) scale(1);filter:brightness(1.25)}100%{transform:rotateY(720deg) scale(1);filter:brightness(1)}}
+.dh{font-family:'LXGW WenKai TC',serif;font-size:.82rem;color:rgba(90,82,74,.45);margin-top:24px;animation:pl 2s ease-in-out infinite}
+@keyframes pl{0%,100%{opacity:.35}50%{opacity:.75}}
+#rs{justify-content:flex-start;padding-top:28px;overflow-y:auto}
+.rw{width:100%;max-width:460px;display:flex;flex-direction:column;align-items:center}
+.rc{width:280px;border-radius:18px;overflow:hidden;box-shadow:0 18px 55px rgba(0,0,0,.14);animation:cr .7s ease-out;flex-shrink:0}
 @keyframes cr{0%{opacity:0;transform:scale(.82) rotateY(80deg)}50%{opacity:1;transform:scale(1.01) rotateY(-4deg)}100%{transform:scale(1) rotateY(0)}}
-.r-top{padding:18px 18px 0;text-align:center}
-.r-top .cat-label{font-family:'LXGW WenKai TC',serif;font-size:.72rem;letter-spacing:.28em;opacity:.85;display:block;margin-bottom:4px}
-.r-top .herb-name{font-family:'Noto Serif TC',serif;font-size:1.9rem;font-weight:700;letter-spacing:.15em;display:block;margin-bottom:2px}
-.r-top .latin{font-family:'LXGW WenKai TC',serif;font-size:.7rem;opacity:.65;font-style:italic}
-.r-img-wrap{width:calc(100% - 32px);margin:12px auto 0;aspect-ratio:4/3;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.r-img-wrap img{width:100%;height:100%;object-fit:cover;border-radius:10px}
-.r-img-wrap .no-img{font-family:'LXGW WenKai TC',serif;font-size:1.5rem;opacity:.3;text-align:center}
-.r-divider{display:flex;align-items:center;justify-content:center;gap:5px;padding:6px 0}
-.r-divider .dot{width:4px;height:4px;border-radius:50%}.r-divider .line{width:36px;height:1px}.r-divider .diamond{width:7px;height:7px;transform:rotate(45deg)}
-.r-bot{padding:14px 18px 20px;display:flex;flex-direction:column;gap:7px}
-.r-row{display:flex;gap:8px;align-items:flex-start;font-size:.8rem;line-height:1.6}
-.r-row .rl{font-weight:600;flex-shrink:0;width:52px;text-align:justify;text-align-last:justify}.r-row .rv{flex:1}
-.r-affirm{margin-top:8px;padding-top:10px;border-top:1px dashed rgba(201,169,110,.25);text-align:center}
-.r-affirm p{font-family:'LXGW WenKai TC',serif;font-size:.85rem;line-height:1.8}
-.cc1 .r-top{background:linear-gradient(180deg,#3a5a30,#5a7a4e 60%,#7a9a6e);color:#f0f5ee}.cc1 .r-bot{background:linear-gradient(180deg,#f2f5ef,#eaf0e6);color:#3a4a30}.cc1 .r-divider .dot,.cc1 .r-divider .diamond{background:#5a7a4e}.cc1 .r-divider .line{background:#5a7a4e}.cc1 .r-row .rl{color:#4a6a3a}.cc1 .r-img-wrap{background:rgba(90,122,78,.1)}
-.cc2 .r-top{background:linear-gradient(180deg,#7a3a4a,#a05868 60%,#c07888);color:#f8f0f2}.cc2 .r-bot{background:linear-gradient(180deg,#f8f0f2,#f4e8ec);color:#4a2a3a}.cc2 .r-divider .dot,.cc2 .r-divider .diamond{background:#a05868}.cc2 .r-divider .line{background:#a05868}.cc2 .r-row .rl{color:#8a4a5a}.cc2 .r-img-wrap{background:rgba(160,88,104,.1)}
-.cc3 .r-top{background:linear-gradient(180deg,#2a4a5a,#4a7a8a 60%,#6a9aaa);color:#eef4f6}.cc3 .r-bot{background:linear-gradient(180deg,#eef4f6,#e4f0f4);color:#2a3a4a}.cc3 .r-divider .dot,.cc3 .r-divider .diamond{background:#4a7a8a}.cc3 .r-divider .line{background:#4a7a8a}.cc3 .r-row .rl{color:#3a6a7a}.cc3 .r-img-wrap{background:rgba(74,122,138,.1)}
-.cc4 .r-top{background:linear-gradient(180deg,#5a4a2a,#8a7a4a 60%,#aaa06a);color:#f8f6ee}.cc4 .r-bot{background:linear-gradient(180deg,#f6f4ee,#f2f0e6);color:#3a3020}.cc4 .r-divider .dot,.cc4 .r-divider .diamond{background:#8a7a4a}.cc4 .r-divider .line{background:#8a7a4a}.cc4 .r-row .rl{color:#6a5a3a}.cc4 .r-img-wrap{background:rgba(138,122,74,.1)}
-.cc5 .r-top{background:linear-gradient(180deg,#4a3a5a,#7a6888 60%,#9a88a8);color:#f4f0f6}.cc5 .r-bot{background:linear-gradient(180deg,#f4f0f6,#eee8f2);color:#3a2a4a}.cc5 .r-divider .dot,.cc5 .r-divider .diamond{background:#7a6888}.cc5 .r-divider .line{background:#7a6888}.cc5 .r-row .rl{color:#5a4a6a}.cc5 .r-img-wrap{background:rgba(122,104,136,.1)}
-.healing-box{width:100%;max-width:460px;padding:24px 22px;margin-top:20px;background:rgba(255,255,255,.5);border-radius:14px;border:1px solid rgba(201,169,110,.12);backdrop-filter:blur(8px);animation:fu .7s ease-out .25s both}
+.rt{padding:18px 18px 0;text-align:center}
+.rt .cl{font-family:'LXGW WenKai TC',serif;font-size:.72rem;letter-spacing:.28em;opacity:.85;display:block;margin-bottom:4px}
+.rt .hn{font-family:'Noto Serif TC',serif;font-size:1.9rem;font-weight:700;letter-spacing:.15em;display:block;margin-bottom:2px}
+.rt .ln{font-family:'LXGW WenKai TC',serif;font-size:.7rem;opacity:.65;font-style:italic}
+.ri{width:calc(100% - 32px);margin:12px auto 0;aspect-ratio:4/3;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.ri img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+.ri .ni{font-size:1.5rem;opacity:.3}
+.rd{display:flex;align-items:center;justify-content:center;gap:5px;padding:6px 0}
+.rd .dt{width:4px;height:4px;border-radius:50%}.rd .li{width:36px;height:1px}.rd .dm{width:7px;height:7px;transform:rotate(45deg)}
+.rb{padding:14px 18px 20px;display:flex;flex-direction:column;gap:7px}
+.rr{display:flex;gap:8px;align-items:flex-start;font-size:.8rem;line-height:1.6}
+.rr .rl{font-weight:600;flex-shrink:0;width:52px;text-align:justify;text-align-last:justify}.rr .rv{flex:1}
+.ra{margin-top:8px;padding-top:10px;border-top:1px dashed rgba(201,169,110,.25);text-align:center}
+.ra p{font-family:'LXGW WenKai TC',serif;font-size:.85rem;line-height:1.8}
+.c1 .rt{background:linear-gradient(180deg,#3a5a30,#5a7a4e 60%,#7a9a6e);color:#f0f5ee}.c1 .rb{background:linear-gradient(180deg,#f2f5ef,#eaf0e6);color:#3a4a30}.c1 .rd .dt,.c1 .rd .dm{background:#5a7a4e}.c1 .rd .li{background:#5a7a4e}.c1 .rr .rl{color:#4a6a3a}.c1 .ri{background:rgba(90,122,78,.1)}
+.c2 .rt{background:linear-gradient(180deg,#7a3a4a,#a05868 60%,#c07888);color:#f8f0f2}.c2 .rb{background:linear-gradient(180deg,#f8f0f2,#f4e8ec);color:#4a2a3a}.c2 .rd .dt,.c2 .rd .dm{background:#a05868}.c2 .rd .li{background:#a05868}.c2 .rr .rl{color:#8a4a5a}.c2 .ri{background:rgba(160,88,104,.1)}
+.c3 .rt{background:linear-gradient(180deg,#2a4a5a,#4a7a8a 60%,#6a9aaa);color:#eef4f6}.c3 .rb{background:linear-gradient(180deg,#eef4f6,#e4f0f4);color:#2a3a4a}.c3 .rd .dt,.c3 .rd .dm{background:#4a7a8a}.c3 .rd .li{background:#4a7a8a}.c3 .rr .rl{color:#3a6a7a}.c3 .ri{background:rgba(74,122,138,.1)}
+.c4 .rt{background:linear-gradient(180deg,#5a4a2a,#8a7a4a 60%,#aaa06a);color:#f8f6ee}.c4 .rb{background:linear-gradient(180deg,#f6f4ee,#f2f0e6);color:#3a3020}.c4 .rd .dt,.c4 .rd .dm{background:#8a7a4a}.c4 .rd .li{background:#8a7a4a}.c4 .rr .rl{color:#6a5a3a}.c4 .ri{background:rgba(138,122,74,.1)}
+.c5 .rt{background:linear-gradient(180deg,#4a3a5a,#7a6888 60%,#9a88a8);color:#f4f0f6}.c5 .rb{background:linear-gradient(180deg,#f4f0f6,#eee8f2);color:#3a2a4a}.c5 .rd .dt,.c5 .rd .dm{background:#7a6888}.c5 .rd .li{background:#7a6888}.c5 .rr .rl{color:#5a4a6a}.c5 .ri{background:rgba(122,104,136,.1)}
+.hb{width:100%;max-width:460px;padding:24px 22px;margin-top:20px;background:rgba(255,255,255,.5);border-radius:14px;border:1px solid rgba(201,169,110,.12);backdrop-filter:blur(8px);animation:fu .7s ease-out .25s both}
 @keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.healing-box .qi{font-family:'Noto Serif TC',serif;font-size:2.2rem;color:var(--gold);opacity:.35;line-height:1;text-align:center;margin-bottom:6px}
-.healing-box .jinju{font-family:'Noto Serif TC',serif;font-size:clamp(1.05rem,3.2vw,1.25rem);color:var(--ink);text-align:center;line-height:1.9;margin-bottom:10px;font-weight:600}
-.healing-box .yaoli{font-family:'LXGW WenKai TC',serif;font-size:clamp(.88rem,2.6vw,.98rem);color:var(--ink-lt);text-align:center;line-height:1.9}
-.interp-box{width:100%;max-width:460px;margin-top:16px;border-radius:14px;overflow:hidden;animation:fu .7s ease-out .4s both}
-.interp-header{background:linear-gradient(135deg,#1a1f3a,#2d3561);padding:14px 20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px}
-.interp-header span{color:var(--gold);font-size:.85rem}
-.interp-header h3{font-family:'Noto Serif TC',serif;font-size:1.05rem;color:var(--gold-lt);letter-spacing:.2em;font-weight:600}
-.interp-body{background:linear-gradient(180deg,#1a1f3a,#0f1225);padding:20px 22px 24px;color:#d0cdc6}
-.interp-body p{font-family:'LXGW WenKai TC',serif;font-size:clamp(.88rem,2.6vw,.95rem);line-height:2;margin-bottom:14px;text-align:justify}
-.interp-body p:last-child{margin-bottom:0}
-.interp-body .ib-hl{color:#a8c4d8;font-weight:700}
-.interp-body .ib-af{font-family:'Noto Serif TC',serif;font-size:clamp(.95rem,2.8vw,1.05rem);color:var(--gold-lt);text-align:center;font-weight:600;line-height:1.9;margin-top:4px;padding-top:14px;border-top:1px solid rgba(201,169,110,.15)}
-.interp-body .ib-disc{font-size:.78rem;color:#8a8a7a;margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);line-height:1.8}
-.act-row{display:flex;gap:12px;margin-top:24px;margin-bottom:36px;animation:fu .7s ease-out .55s both}
-.act{display:flex;align-items:center;justify-content:center;height:46px;padding:0 24px;border-radius:999px;font-family:'Noto Serif TC',serif;font-size:.88rem;letter-spacing:.12em;cursor:pointer;transition:all .3s;border:none}
-.act.p{background:linear-gradient(135deg,var(--gold),var(--gold-dk));color:var(--cream);box-shadow:0 4px 18px rgba(201,169,110,.28)}.act.p:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,169,110,.38)}
-.act.s{background:rgba(255,255,255,.55);color:var(--ink-lt);border:1px solid rgba(201,169,110,.25);backdrop-filter:blur(6px)}.act.s:hover{background:rgba(255,255,255,.85);border-color:var(--gold)}
-#coll-screen{justify-content:flex-start;padding-top:20px;overflow-y:auto}
-.coll-head{text-align:center;margin-bottom:16px;width:100%;max-width:580px}
-.coll-head h2{font-family:'Noto Serif TC',serif;font-size:1.3rem;letter-spacing:.2em;color:var(--gold-dk);margin-bottom:6px}
-.coll-head .cnt{font-family:'LXGW WenKai TC',serif;font-size:.82rem;color:var(--ink-lt)}
-.tabs{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;max-width:580px;width:100%;padding:0 8px}
-.tab{padding:5px 12px;border-radius:999px;font-family:'Noto Sans TC',sans-serif;font-size:.75rem;cursor:pointer;border:1px solid rgba(201,169,110,.22);background:rgba(255,255,255,.45);color:var(--ink-lt);transition:all .3s}.tab:hover{border-color:var(--gold)}.tab.on{background:var(--gold);color:var(--cream);border-color:var(--gold)}
-.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;width:100%;max-width:580px;padding:0 8px 80px}
-.hchip{padding:9px 10px;border-radius:9px;text-align:center;font-size:.82rem;cursor:pointer;transition:all .3s;border:1px solid transparent}
-.hchip.y{background:rgba(255,255,255,.65);border-color:rgba(201,169,110,.18)}.hchip.n{background:rgba(0,0,0,.025);color:rgba(90,82,74,.3)}.hchip.y:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.07);border-color:var(--gold)}
-.hchip .cn{font-weight:500;display:block}.hchip .sc{font-size:.68rem;opacity:.55;margin-top:1px}
-.coll-back{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10}
+.hb .qi{font-family:'Noto Serif TC',serif;font-size:2.2rem;color:var(--g);opacity:.35;line-height:1;text-align:center;margin-bottom:6px}
+.hb .jj{font-family:'Noto Serif TC',serif;font-size:clamp(1.05rem,3.2vw,1.25rem);color:var(--i);text-align:center;line-height:1.9;margin-bottom:10px;font-weight:600}
+.hb .yl{font-family:'LXGW WenKai TC',serif;font-size:clamp(.88rem,2.6vw,.98rem);color:var(--il);text-align:center;line-height:1.9}
+.ib{width:100%;max-width:460px;margin-top:16px;border-radius:14px;overflow:hidden;animation:fu .7s ease-out .4s both}
+.ibh{background:linear-gradient(135deg,#1a1f3a,#2d3561);padding:14px 20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px}
+.ibh span{color:var(--g);font-size:.85rem}.ibh h3{font-family:'Noto Serif TC',serif;font-size:1.05rem;color:var(--gl);letter-spacing:.2em;font-weight:600}
+.ibb{background:linear-gradient(180deg,#1a1f3a,#0f1225);padding:20px 22px 24px;color:#d0cdc6}
+.ibb p{font-family:'LXGW WenKai TC',serif;font-size:clamp(.88rem,2.6vw,.95rem);line-height:2;margin-bottom:14px;text-align:justify}.ibb p:last-child{margin-bottom:0}
+.ibb .hl{color:#a8c4d8;font-weight:700}
+.ibb .af{font-family:'Noto Serif TC',serif;font-size:clamp(.95rem,2.8vw,1.05rem);color:var(--gl);text-align:center;font-weight:600;line-height:1.9;padding-top:14px;border-top:1px solid rgba(201,169,110,.15)}
+.ibb .dc{font-size:.78rem;color:#8a8a7a;margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);line-height:1.8}
+.ar{display:flex;gap:12px;margin-top:24px;margin-bottom:36px;animation:fu .7s ease-out .55s both}
+.ab{display:flex;align-items:center;justify-content:center;height:46px;padding:0 24px;border-radius:999px;font-family:'Noto Serif TC',serif;font-size:.88rem;letter-spacing:.12em;cursor:pointer;transition:all .3s;border:none}
+.ab.p{background:linear-gradient(135deg,var(--g),var(--gd));color:var(--cr);box-shadow:0 4px 18px rgba(201,169,110,.28)}.ab.p:hover{transform:translateY(-2px)}
+.ab.s{background:rgba(255,255,255,.55);color:var(--il);border:1px solid rgba(201,169,110,.25)}.ab.s:hover{background:rgba(255,255,255,.85);border-color:var(--g)}
+#co{justify-content:flex-start;padding-top:20px;overflow-y:auto}
+.chd{text-align:center;margin-bottom:16px;width:100%;max-width:580px}
+.chd h2{font-family:'Noto Serif TC',serif;font-size:1.3rem;letter-spacing:.2em;color:var(--gd);margin-bottom:6px}
+.chd .cn{font-family:'LXGW WenKai TC',serif;font-size:.82rem;color:var(--il)}
+.tbs{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;max-width:580px;width:100%;padding:0 8px}
+.tb{padding:5px 12px;border-radius:999px;font-size:.75rem;cursor:pointer;border:1px solid rgba(201,169,110,.22);background:rgba(255,255,255,.45);color:var(--il);transition:all .3s}.tb:hover{border-color:var(--g)}.tb.on{background:var(--g);color:var(--cr);border-color:var(--g)}
+.hg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;width:100%;max-width:580px;padding:0 8px 80px}
+.hc{padding:9px 10px;border-radius:9px;text-align:center;font-size:.82rem;cursor:pointer;transition:all .3s;border:1px solid transparent}
+.hc.y{background:rgba(255,255,255,.65);border-color:rgba(201,169,110,.18)}.hc.n{background:rgba(0,0,0,.025);color:rgba(90,82,74,.3)}.hc.y:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.07);border-color:var(--g)}
+.hc .nm{font-weight:500;display:block}.hc .su{font-size:.68rem;opacity:.55;margin-top:1px}
+.bk{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10}
 .ptc{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.pt{position:absolute;width:3px;height:3px;background:var(--gold);border-radius:50%;opacity:0;animation:ptd linear infinite}
+.pt{position:absolute;width:3px;height:3px;background:var(--g);border-radius:50%;opacity:0;animation:ptd linear infinite}
 @keyframes ptd{0%{opacity:0;transform:translateY(100vh) scale(.5)}10%{opacity:.35}90%{opacity:.15}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
-@media(max-width:400px){.r-card{width:260px}.hgrid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr))}}
-@media(min-width:768px){.hgrid{grid-template-columns:repeat(4,1fr)}}
-</style></head>
-<body>
+@media(max-width:400px){.rc{width:260px}.hg{grid-template-columns:repeat(auto-fill,minmax(105px,1fr))}}
+@media(min-width:768px){.hg{grid-template-columns:repeat(4,1fr)}}
+</style></head><body>
 <div class="ptc" id="ptc"></div>
-<div class="screen visible" id="welcome">
-  <div class="brand"><span class="glyph">本草心語</span><span class="sub">Herbal Heart Language</span></div>
-  <div class="tagline">靜下心，感受此刻的自己<br>讓一味本草，回應你內心的聲音</div>
-  <button class="cta" onclick="go('draw-screen')">開始抽牌</button>
-  <div class="nav-row"><button class="nav-link" onclick="go('coll-screen')">藥材圖鑑</button></div>
+<div class="sc v" id="wl">
+<div class="br"><span class="gl">本草心語</span><span class="sb">Herbal Heart Language</span></div>
+<div class="tg">靜下心，感受此刻的自己<br>讓一味本草，回應你內心的聲音</div>
+<button class="ct" onclick="go('ds')">開始抽牌</button>
+<div class="nr"><button class="nl" onclick="go('co')">藥材圖鑑</button></div>
 </div>
-<div class="screen hidden" id="draw-screen">
-  <p class="draw-inst">閉上眼，深呼吸三次<br>在心中默念你的問題<br>準備好了，就翻開這張牌</p>
-  <div class="card-spread floating" id="cs" onclick="draw()">
-    <div class="card-back">
-      <img class="card-back-img" src="images/card_back.png" alt="" onerror="this.style.display='none'">
-      <div class="card-back-inner"><span class="icon">🌿</span><span class="label">本草心語</span></div>
-    </div>
-  </div>
-  <p class="draw-hint">輕觸翻牌</p>
+<div class="sc h" id="ds">
+<p class="di">閉上眼，深呼吸三次<br>在心中默念你的問題<br>準備好了，就翻開這張牌</p>
+<div class="cs fl" id="csp" onclick="draw()">
+<div class="cb"><img class="cbi" src="images/card_back.png" onerror="this.style.display='none'"><div class="cbn"><span class="ic">🌿</span><span class="lb">本草心語</span></div></div>
 </div>
-<div class="screen hidden" id="result-screen"><div class="result-wrap" id="rw"></div></div>
-<div class="screen hidden" id="coll-screen">
-  <div class="coll-head"><h2>藥材圖鑑</h2><p class="cnt" id="ccnt"></p></div>
-  <div class="tabs" id="ctabs"></div>
-  <div class="hgrid" id="hgrid"></div>
-  <div class="coll-back"><button class="act s" onclick="go('welcome')">返回首頁</button></div>
+<p class="dh">輕觸翻牌</p>
+</div>
+<div class="sc h" id="rs"><div class="rw" id="rw"></div></div>
+<div class="sc h" id="co">
+<div class="chd"><h2>藥材圖鑑</h2><p class="cn" id="ccnt"></p></div>
+<div class="tbs" id="ctbs"></div>
+<div class="hg" id="hg"></div>
+<div class="bk"><button class="ab s" onclick="go('wl')">返回首頁</button></div>
 </div>
 <script>
-const H=[\n{id:1,n:'肉桂',la:'Cinnamomum cassia',cat:'補益類',sub:'溫裡',pr:'辛、甘，大熱',me:'腎、脾、心、肝',fn:'補火助陽、引火歸元',af:'我內在的火焰明亮，溫暖照亮我的路',mo:'「點燃心中的小火爐。」',yo:'引火歸元，把焦慮轉化為溫暖心窩的能量。',img:'rougui',bs:'身體寒冷、手腳冰涼、精神不振'},
-{id:2,n:'乾薑',la:'Zingiber officinale (dried)',cat:'補益類',sub:'溫裡',pr:'辛，熱',me:'脾、胃、腎、心、肺',fn:'溫中散寒、回陽通脈、溫肺化飲',af:'溫暖的能量融化寒冰，感受重新流動',mo:'「從核心溫暖起來。」',yo:'溫中散寒，讓冰封的內在重新流動。',img:'ganjiang',bs:'身體寒冷、手腳冰涼、精神不振'},
-{id:3,n:'丁香',la:'Syzygium aromaticum',cat:'補益類',sub:'溫裡',pr:'辛，溫',me:'脾、胃、腎',fn:'溫中降逆、補腎助陽',af:'我接受生命的一切，順應自然的氣息',mo:'「芬芳中的溫暖。」',yo:'溫中降逆，用香氣化解胃中的寒涼翻騰。',img:'dingxiang',bs:'身體寒冷、手腳冰涼、精神不振'},
-{id:4,n:'小茴香',la:'Foeniculum vulgare',cat:'補益類',sub:'溫裡',pr:'辛，溫',me:'肝、腎、脾、胃',fn:'散寒止痛、理氣和胃',af:'我的情緒自由流動，寒意在溫柔中解開',mo:'「溫柔解開糾結。」',yo:'散寒止痛，讓緊縮的腹中恢復舒展。',img:'xiaohuixiang',bs:'身體寒冷、手腳冰涼、精神不振'},
-{id:5,n:'吳茱萸',la:'Evodia rutaecarpa',cat:'補益類',sub:'溫裡',pr:'辛、苦，熱',me:'肝、脾、胃、腎',fn:'散寒止痛、降逆止嘔、助陽止瀉',af:'我平息內在的混亂，讓平靜重新降臨',mo:'「驅散深處的寒意。」',yo:'散寒止痛，將藏在角落的寒氣一掃而空。',img:'wuzhuyu',bs:'身體寒冷、手腳冰涼、精神不振'},
-{id:6,n:'人參',la:'Panax ginseng',cat:'補益類',sub:'補氣',pr:'甘、微苦，微溫',me:'脾、肺、心、腎',fn:'大補元氣、安神益智',af:'我的內在力量源源不絕，我值得被滋養',mo:'「大補元氣，重啟核心。」',yo:'當你感到空虛時，記得找回最原始的力量。',img:'renshen',bs:'疲倦乏力、氣短懶言、精神不濟'},
-{id:7,n:'黃耆',la:'Astragalus membranaceus',cat:'補益類',sub:'補氣',pr:'甘，微溫',me:'脾、肺',fn:'益氣固表、利尿托毒',af:'我有堅固的能量屏障，保護我不受侵擾',mo:'「為自己築起護城河。」',yo:'補足了氣，外在的紛擾就再也傷不了你。',img:'huangqi',bs:'疲倦乏力、氣短懶言、精神不濟'},
-{id:8,n:'紅棗',la:'Ziziphus jujuba',cat:'補益類',sub:'補氣',pr:'甘，溫',me:'脾、胃',fn:'補中益氣、養血安神',af:'我被溫柔包圍，內心感到安穩與滿足',mo:'「給生活一點紅潤。」',yo:'脾胃安穩了，心情也會跟著甜美起來。',img:'hongzao',bs:'疲倦乏力、氣短懶言、精神不濟'},
-{id:9,n:'山藥',la:'Dioscorea opposita',cat:'補益類',sub:'補氣',pr:'甘，平',me:'脾、肺、腎',fn:'補脾養胃、生津益肺',af:'我能從容轉化生命經驗，成為成長養分',mo:'「不溫不火的滋養。」',yo:'最好的補給，是潤物無聲地融入日常。',img:'shanyao',bs:'疲倦乏力、氣短懶言、精神不濟'},
-{id:10,n:'靈芝',la:'Ganoderma lucidum',cat:'補益類',sub:'補氣',pr:'甘，平',me:'心、肺、肝、腎',fn:'補氣安神、止咳平喘',af:'我與宇宙的智慧相連，內在平和而覺醒',mo:'「與天地同呼吸。」',yo:'補氣安神，開啟身心與宇宙的智慧連結。',img:'lingzhi',bs:'疲倦乏力、氣短懶言、精神不濟'},
-{id:11,n:'黨參',la:'Codonopsis pilosula',cat:'補益類',sub:'補氣',pr:'甘，平',me:'脾、肺',fn:'健脾益肺、養血生津',af:'我以穩定的步伐前進，力量持續累積',mo:'「每一天的日常，都值得細心補給。」',yo:'平凡的積累，終能成就脾胃的底氣。',img:'dangshen',bs:'疲倦乏力、氣短懶言、精神不濟'},
-{id:12,n:'白朮',la:'Atractylodes macrocephala',cat:'補益類',sub:'補氣',pr:'苦、甘，溫',me:'脾、胃',fn:'健脾益氣、燥濕利水、止汗安胎',af:'我的內在井然有序，清明而穩定',mo:'「排解心中的濕重。」',yo:'健脾化濕，讓沉重的心情恢復清爽。',img:'baizhu',bs:'疲倦乏力、氣短懶言、精神不濟'},
-{id:13,n:'西洋參',la:'Panax quinquefolius',cat:'補益類',sub:'補氣',pr:'甘、微苦，涼',me:'心、肺、腎',fn:'補氣養陰、清熱生津',af:'我以清涼的方式滋養自己，恢復平靜',mo:'「在冷靜中補給。」',yo:'不需要燥進，也能在平和中養出滿滿的元氣。',img:'xiyangshen',bs:'疲倦乏力、氣短懶言、精神不濟'},
-{id:14,n:'甘草',la:'Glycyrrhiza uralensis',cat:'補益類',sub:'補氣',pr:'甘，平',me:'心、肺、脾、胃',fn:'補脾益氣、清熱解毒',af:'我調和內外的一切，在圓滿中獲得自在',mo:'「與世界達成和解。」',yo:'調和諸藥的力量，是讓一切矛盾都化為圓滿。',img:'gancao',bs:'疲倦乏力、氣短懶言、精神不濟'},
-{id:15,n:'當歸',la:'Angelica sinensis',cat:'補益類',sub:'補血',pr:'甘、辛，溫',me:'肝、心、脾',fn:'補血活血、調經止痛',af:'愛的能量在我體內流動，滋養每個細胞',mo:'「讓愛流動，適時回歸。」',yo:'活血補血，讓心底凝滯的委屈重新流動。',img:'danggui',bs:'面色蒼白、心悸失眠、情感空虛'},
-{id:16,n:'桂圓',la:'Dimocarpus longan',cat:'補益類',sub:'補血',pr:'甘，溫',me:'心、脾',fn:'補心安神、養血益脾',af:'我的心安住當下，寧靜而圓滿',mo:'「圓滿自己的心房。」',yo:'補心安神，讓不安的靈魂找到溫暖歸宿。',img:'guiyuan',bs:'面色蒼白、心悸失眠、情感空虛'},
-{id:17,n:'制何首烏',la:'Polygonum multiflorum (processed)',cat:'補益類',sub:'補血',pr:'苦、甘、澀，微溫',me:'肝、腎',fn:'補肝腎、益精血、烏鬚髮',af:'我擁抱生命的每個階段，智慧與活力並存',mo:'「留住美好的光澤。」',yo:'由內而外的滋養，能讓時光在髮間停留。',img:'zhiheshouwu',bs:'面色蒼白、心悸失眠、情感空虛'},
-{id:18,n:'阿膠',la:'Equus asinus (Colla Corii Asini)',cat:'補益類',sub:'補血',pr:'甘，平',me:'肺、肝、腎',fn:'補血滋陰、潤燥止血',af:'我的生命如甘泉湧流，充滿滋潤與甜美',mo:'「修補心靈的裂痕。」',yo:'滋陰補血，為疲憊的靈魂覆蓋一層保護膜。',img:'ejiao',bs:'面色蒼白、心悸失眠、情感空虛'},
-{id:19,n:'白芍',la:'Paeonia lactiflora',cat:'補益類',sub:'補血',pr:'苦、酸，微寒',me:'肝、脾',fn:'養血調經、斂陰止汗',af:'我的內在柔軟有彈性，優雅地面對壓力',mo:'「溫柔地擁抱情緒。」',yo:'柔肝止痛，讓緊繃的身體在愛中放鬆。',img:'baishao',bs:'面色蒼白、心悸失眠、情感空虛'},
-{id:20,n:'枸杞子',la:'Lycium barbarum',cat:'補益類',sub:'補陰',pr:'甘，平',me:'肝、腎',fn:'滋補肝腎、益精明目',af:'我以清澈的雙眼看見生命中的美好',mo:'「用清澈的眼看世界。」',yo:'滋補肝腎，讓你的視野永遠明亮溫柔。',img:'gouqizi',bs:'口乾舌燥、心煩失眠、內熱焦躁'},
-{id:21,n:'熟地黃',la:'Rehmannia glutinosa (processed)',cat:'補益類',sub:'補陰',pr:'甘，微溫',me:'肝、腎',fn:'滋陰補血、益精填髓',af:'我深深扎根於大地，內在充實而穩固',mo:'「在深度中紮根。」',yo:'滋陰填髓，在安靜中補足最深層的生命力。',img:'shudihuang',bs:'口乾舌燥、心煩失眠、內熱焦躁'},
-{id:22,n:'天門冬',la:'Asparagus cochinchinensis',cat:'補益類',sub:'補陰',pr:'甘、苦，寒',me:'肺、腎',fn:'養陰潤燥、清肺生津',af:'我平息燥熱的情緒，恢復冰清般的冷靜',mo:'「在乾涸中保持清涼。」',yo:'養陰潤燥，即使烈日當空也能保持內心清潤。',img:'tianmendong',bs:'口乾舌燥、心煩失眠、內熱焦躁'},
-{id:23,n:'百合',la:'Lilium brownii',cat:'補益類',sub:'補陰',pr:'甘，微寒',me:'心、肺',fn:'養陰潤肺、清心安神',af:'我的心如百合般純淨，在寧靜中綻放',mo:'「純淨的心，自有力量。」',yo:'養陰潤肺，讓心靈如百合般澄澈安寧。',img:'baihe',bs:'口乾舌燥、心煩失眠、內熱焦躁'},
-{id:24,n:'麥門冬',la:'Ophiopogon japonicus',cat:'補益類',sub:'補陰',pr:'甘、微苦，微寒',me:'心、肺、胃',fn:'養陰生津、潤肺清心',af:'我以甘潤滋養心田，讓清涼泉水流過',mo:'「滋潤每一寸乾涸。」',yo:'養陰生津，為枯竭的心田注入清泉。',img:'maimendong',bs:'口乾舌燥、心煩失眠、內熱焦躁'},
-{id:25,n:'玉竹',la:'Polygonatum odoratum',cat:'補益類',sub:'補陰',pr:'甘，微寒',me:'肺、胃',fn:'養陰潤燥、生津止渴',af:'我找回內在的潤澤，重新連結美的感知',mo:'「柔韌地穿越乾旱。」',yo:'養陰潤燥，溫柔而持久地滋養生命。',img:'yuzhu',bs:'口乾舌燥、心煩失眠、內熱焦躁'},
-{id:26,n:'冬蟲夏草',la:'Cordyceps sinensis',cat:'補益類',sub:'補陽',pr:'甘，平',me:'肺、腎',fn:'補肺益腎、止血化痰',af:'我在蛻變中更加完整，生命不斷更新',mo:'「跨越季節的等待。」',yo:'在沉默中蛻變，只為補足生命最深刻的氣。',img:'dongchongxiacao',bs:'畏寒怕冷、腰膝酸軟、動力不足'},
-{id:27,n:'續斷',la:'Dipsacus asperoides',cat:'補益類',sub:'補陽',pr:'苦、辛，微溫',me:'肝、腎',fn:'補肝腎、強筋骨、續折傷',af:'我溫柔撫平傷痛，讓勇氣重新連結',mo:'「連結斷點，重新出發。」',yo:'續筋接骨，受過的傷會讓你變得更強壯。',img:'xuduan',bs:'畏寒怕冷、腰膝酸軟、動力不足'},
-{id:28,n:'補骨脂',la:'Psoralea corylifolia',cat:'補益類',sub:'補陽',pr:'辛、苦，溫',me:'腎、脾',fn:'補腎壯陽、固精縮尿',af:'我點燃內在的火種，照亮前行的道路',mo:'「重建生命的骨架。」',yo:'補腎壯陽，讓動搖的根基再次穩固。',img:'buguzhi',bs:'畏寒怕冷、腰膝酸軟、動力不足'},
-{id:29,n:'淫羊藿',la:'Epimedium brevicornu',cat:'補益類',sub:'補陽',pr:'辛、甘，溫',me:'肝、腎',fn:'補腎陽、強筋骨、祛風濕',af:'我擁抱生命的熱情，展現強大的生命力',mo:'「喚醒沉睡的熱情。」',yo:'補腎陽強筋骨，重燃生命的火焰。',img:'yinyanghuo',bs:'畏寒怕冷、腰膝酸軟、動力不足'},
-{id:30,n:'肉蓯蓉',la:'Cistanche deserticola',cat:'補益類',sub:'補陽',pr:'甘、鹹，溫',me:'腎、大腸',fn:'補腎陽、益精血、潤腸通便',af:'我恢復流暢的步調，讓生活充滿潤澤',mo:'「沙漠中的生命力。」',yo:'補腎益精，在貧瘠中依然綻放力量。',img:'roucongrong',bs:'畏寒怕冷、腰膝酸軟、動力不足'},
-{id:31,n:'杜仲',la:'Eucommia ulmoides',cat:'補益類',sub:'補陽',pr:'甘，溫',me:'肝、腎',fn:'補肝腎、強筋骨、安胎',af:'我的意志堅韌強健，能承載生命的目標',mo:'「韌性，是斷不了的連結。」',yo:'強筋壯骨，內在的絲線能撐起受傷的你。',img:'duzhong',bs:'畏寒怕冷、腰膝酸軟、動力不足'},
-{id:32,n:'鹿茸',la:'Cervus nippon (Cornu Cervi Pantotrichum)',cat:'補益類',sub:'補陽',pr:'甘、鹹，溫',me:'腎、肝',fn:'壯腎陽、益精血、強筋骨',af:'我承接金色的能量，展現自信與尊貴',mo:'「蓬勃向上的生長力。」',yo:'壯腎陽益精血，如春日鹿角般充滿生機。',img:'lurong',bs:'畏寒怕冷、腰膝酸軟、動力不足'},
-{id:33,n:'牛膝',la:'Achyranthes bidentata',cat:'理氣活血類',sub:'活血',pr:'苦、甘、酸，平',me:'肝、腎',fn:'逐瘀通經、補肝腎、引血下行',af:'我將能量平穩下沉，腳踏實地感受大地',mo:'「引導能量向下扎根。」',yo:'引血下行，讓上衝的躁動回歸穩定。',img:'niuxi',bs:'情緒鬱結、胸悶刺痛、循環不暢'},
-{id:34,n:'三七',la:'Panax notoginseng',cat:'理氣活血類',sub:'活血',pr:'甘、微苦，溫',me:'肝、胃',fn:'散瘀止血、消腫定痛',af:'我化解深層的瘀結，迎來全新的生命',mo:'「止住傷口，化解舊痛。」',yo:'散瘀止血，讓創傷不再是負擔。',img:'sanqi',bs:'情緒鬱結、胸悶刺痛、循環不暢'},
-{id:35,n:'桃仁',la:'Prunus persica',cat:'理氣活血類',sub:'活血',pr:'苦、甘，平',me:'心、肝、大腸',fn:'活血祛瘀、潤腸通便',af:'我放下執著的停滯，開啟活力的循環',mo:'「破開陳舊的堵塞。」',yo:'活血祛瘀，打通被遺忘的通道。',img:'taoren',bs:'情緒鬱結、胸悶刺痛、循環不暢'},
-{id:36,n:'紅花',la:'Carthamus tinctorius',cat:'理氣活血類',sub:'活血',pr:'辛，溫',me:'心、肝',fn:'活血通經、散瘀止痛',af:'我點燃生命的熱度，讓熱血重新沸騰',mo:'「點燃流動的生機。」',yo:'活血通經，讓停滯的血液再次奔流。',img:'honghua',bs:'情緒鬱結、胸悶刺痛、循環不暢'},
-{id:37,n:'益母草',la:'Leonurus japonicus',cat:'理氣活血類',sub:'活血',pr:'辛、苦，微寒',me:'肝、心包、膀胱',fn:'活血調經、利尿消腫',af:'我溫柔對待自己，讓女性的慈愛滋長',mo:'「母親般的守護。」',yo:'活血調經，溫柔地照顧女性的身心。',img:'yimucao',bs:'情緒鬱結、胸悶刺痛、循環不暢'},
-{id:38,n:'川芎',la:'Ligusticum chuanxiong',cat:'理氣活血類',sub:'活血',pr:'辛，溫',me:'肝、膽、心包',fn:'活血行氣、祛風止痛',af:'我的氣血暢通無阻，智慧在流動中閃耀',mo:'「穿越阻礙的力量。」',yo:'活血行氣，讓氣血突破所有障礙。',img:'chuanxiong',bs:'情緒鬱結、胸悶刺痛、循環不暢'},
-{id:39,n:'延胡索',la:'Corydalis yanhusuo',cat:'理氣活血類',sub:'活血',pr:'辛、苦，溫',me:'肝、脾',fn:'活血行氣、止痛',af:'我切斷痛苦的連結，讓平安在體內擴散',mo:'「直達痛點的解藥。」',yo:'活血止痛，精準化解每一處疼痛。',img:'yanhusuo',bs:'情緒鬱結、胸悶刺痛、循環不暢'},
-{id:40,n:'丹參',la:'Salvia miltiorrhiza',cat:'理氣活血類',sub:'活血',pr:'苦，微寒',me:'心、肝',fn:'活血祛瘀、涼血消癰',af:'我打開心靈的循環，讓愛自在地出入',mo:'「一味抵三藥的力量。」',yo:'活血祛瘀，全方位疏通心脈。',img:'danshen',bs:'情緒鬱結、胸悶刺痛、循環不暢'},
-{id:41,n:'枳殼',la:'Citrus aurantium',cat:'理氣活血類',sub:'理氣',pr:'苦、辛，微寒',me:'脾、胃、大腸',fn:'理氣寬中、行滯消脹',af:'我放下對結果的執著，內心放鬆而通達',mo:'「撐開壓縮的空間。」',yo:'理氣寬中，讓被壓迫的胸腹重獲自由。',img:'zhike',bs:'胸悶脹氣、情緒壓抑、呼吸不暢'},
-{id:42,n:'木香',la:'Aucklandia lappa',cat:'理氣活血類',sub:'理氣',pr:'辛、苦，溫',me:'脾、胃、大腸、膽',fn:'行氣止痛、健脾消食',af:'我撫平內在的緊繃，消化生命中的不安',mo:'「讓氣息暢通無阻。」',yo:'行氣止痛，疏通每一條受阻的經絡。',img:'muxiang',bs:'胸悶脹氣、情緒壓抑、呼吸不暢'},
-{id:43,n:'佩蘭',la:'Eupatorium fortunei',cat:'理氣活血類',sub:'理氣',pr:'辛，平',me:'脾、胃、肺',fn:'芳香化濕、醒脾開胃',af:'我洗刷體內的濁氣，回歸清爽自在',mo:'「清新喚醒沉睡的脾。」',yo:'芳香化濕，讓混沌的身心恢復清明。',img:'peilan',bs:'胸悶脹氣、情緒壓抑、呼吸不暢'},
-{id:44,n:'陳皮',la:'Citrus reticulata',cat:'理氣活血類',sub:'理氣',pr:'苦、辛，溫',me:'肺、脾',fn:'理氣健脾、燥濕化痰',af:'我讓氣機順暢流動，所有阻滯都被化解',mo:'「疏通糾結的思緒。」',yo:'理氣化痰，讓壓在心頭的沉悶煙消雲散。',img:'chenpi',bs:'胸悶脹氣、情緒壓抑、呼吸不暢'},
-{id:45,n:'香附',la:'Cyperus rotundus',cat:'理氣活血類',sub:'理氣',pr:'辛、微苦、微甘，平',me:'肝、脾、三焦',fn:'疏肝解鬱、理氣調經、止痛',af:'我允許情緒自由流動，與身體和諧共處',mo:'「解開情緒的鎖。」',yo:'氣病之總司，為你推開鬱結已久的窗。',img:'xiangfu',bs:'胸悶脹氣、情緒壓抑、呼吸不暢'},
-{id:46,n:'玫瑰花',la:'Rosa rugosa',cat:'理氣活血類',sub:'理氣',pr:'甘、微苦，溫',me:'肝、脾',fn:'行氣解鬱、和血散瘀',af:'我釋放壓抑的情緒，溫柔地擁抱自己',mo:'「綻放心中的花園。」',yo:'行氣解鬱，讓愛與美在心間流動。',img:'meiguihua',bs:'胸悶脹氣、情緒壓抑、呼吸不暢'},
-{id:47,n:'佛手',la:'Citrus medica var. sarcodactylis',cat:'理氣活血類',sub:'理氣',pr:'辛、苦，溫',me:'肝、脾、胃、肺',fn:'疏肝理氣、和胃止痛、燥濕化痰',af:'我撥開情緒的迷霧，活出自由的樣貌',mo:'「張開接納的雙手。」',yo:'疏肝理氣，以開放的姿態擁抱生命。',img:'foshou',bs:'胸悶脹氣、情緒壓抑、呼吸不暢'},
-{id:48,n:'砂仁',la:'Amomum villosum',cat:'理氣活血類',sub:'理氣',pr:'辛，溫',me:'脾、胃、腎',fn:'化濕開胃、溫脾止瀉',af:'我喚醒感官的喜悅，重新品味生活',mo:'「開啟封閉的胃口。」',yo:'化濕開胃，讓堵塞的消化重新運轉。',img:'sharen',bs:'胸悶脹氣、情緒壓抑、呼吸不暢'},
-{id:49,n:'金銀花',la:'Lonicera japonica',cat:'清熱解表類',sub:'清熱',pr:'甘，寒',me:'肺、心、胃',fn:'清熱解毒、疏散風熱',af:'我釋放所有的毒素，讓內心清涼平靜',mo:'「以清涼化解毒熱。」',yo:'清熱解毒，將躁動的火焰轉為平靜。',img:'jinyinhua',bs:'心煩易怒、口乾舌燥、焦躁不安'},
-{id:50,n:'菊花',la:'Chrysanthemum morifolium',cat:'清熱解表類',sub:'清熱',pr:'甘、苦，微寒',me:'肺、肝',fn:'疏風清熱、平肝明目',af:'我放下緊繃的視線，以平和心看待世界',mo:'「在紛擾中保持清明。」',yo:'疏風清熱，讓過熱的頭腦冷靜下來。',img:'juhua',bs:'心煩易怒、口乾舌燥、焦躁不安'},
-{id:51,n:'決明子',la:'Cassia obtusifolia',cat:'清熱解表類',sub:'清熱',pr:'甘、苦、鹹，微寒',me:'肝、大腸',fn:'清肝明目、潤腸通便',af:'我清楚看見每個選擇，明智地做出決定',mo:'「看清真相的勇氣。」',yo:'清肝明目，撥開迷霧看見光明。',img:'juemingzi',bs:'心煩易怒、口乾舌燥、焦躁不安'},
-{id:52,n:'梔子',la:'Gardenia jasminoides',cat:'清熱解表類',sub:'清熱',pr:'苦，寒',me:'心、肺、三焦',fn:'瀉火除煩、清熱利濕、涼血解毒',af:'我清走胸中的悶火，找回原本的寬廣',mo:'「釋放心中的燥火。」',yo:'瀉火除煩，讓焦躁的心歸於寧靜。',img:'zhizi',bs:'心煩易怒、口乾舌燥、焦躁不安'},
-{id:53,n:'生地黃',la:'Rehmannia glutinosa (raw)',cat:'清熱解表類',sub:'清熱',pr:'甘、苦，寒',me:'心、肝、腎',fn:'清熱涼血、養陰生津',af:'我的陰陽調和平衡，內在清涼而滋潤',mo:'「冷卻過熱的血液。」',yo:'清熱涼血，讓沸騰的情緒平靜下來。',img:'shengdihuang',bs:'心煩易怒、口乾舌燥、焦躁不安'},
-{id:54,n:'知母',la:'Anemarrhena asphodeloides',cat:'清熱解表類',sub:'清熱',pr:'苦、甘，寒',me:'肺、胃、腎',fn:'清熱瀉火、滋陰潤燥',af:'清涼甘露滋潤我的內在，焦慮隨之平息',mo:'「以智慧降伏虛火。」',yo:'清熱滋陰，用理性平息內在的燃燒。',img:'zhimu',bs:'心煩易怒、口乾舌燥、焦躁不安'},
-{id:55,n:'石膏',la:'Gypsum Fibrosum',cat:'清熱解表類',sub:'清熱',pr:'甘、辛，大寒',me:'肺、胃',fn:'清熱瀉火、除煩止渴',af:'我降下憤怒的高溫，讓理智回歸平靜',mo:'「鎮住狂奔的烈焰。」',yo:'清熱瀉火，讓過度的熱情回歸理性。',img:'shigao',bs:'心煩易怒、口乾舌燥、焦躁不安'},
-{id:56,n:'玄參',la:'Scrophularia ningpoensis',cat:'清熱解表類',sub:'清熱',pr:'甘、苦、鹹，微寒',me:'肺、胃、腎',fn:'清熱涼血、滋陰降火、解毒散結',af:'我平息燃燒的火焰，展現慈悲的語言',mo:'「深入降火，滋養根本。」',yo:'清熱涼血，解開藏在深處的結。',img:'xuanshen',bs:'心煩易怒、口乾舌燥、焦躁不安'},
-{id:57,n:'薄荷',la:'Mentha haplocalyx',cat:'清熱解表類',sub:'解表',pr:'辛，涼',me:'肺、肝',fn:'疏散風熱、疏肝解鬱',af:'清新的風掠過心靈，我的思緒通透清明',mo:'「一陣清風吹散鬱悶。」',yo:'疏散風熱，讓窒悶的心胸豁然開朗。',img:'bohe',bs:'身體僵硬、畏風怕冷、頭痛不適'},
-{id:58,n:'桑葉',la:'Morus alba',cat:'清熱解表類',sub:'解表',pr:'甘、苦，寒',me:'肺、肝',fn:'疏散風熱、清肺潤燥',af:'我疏散外在的燥熱，恢復內在的清明',mo:'「輕柔地疏散燥熱。」',yo:'疏散風熱，如秋葉般帶走多餘的火氣。',img:'sangye',bs:'身體僵硬、畏風怕冷、頭痛不適'},
-{id:59,n:'柴胡',la:'Bupleurum chinense',cat:'清熱解表類',sub:'解表',pr:'苦、辛，微寒',me:'肝、膽、肺',fn:'疏散退熱、疏肝解鬱、升舉陽氣',af:'我在起伏中找到平衡，推開心窗見陽光',mo:'「升起被壓抑的能量。」',yo:'疏肝解鬱，讓下沉的氣機重新上揚。',img:'chaihu',bs:'身體僵硬、畏風怕冷、頭痛不適'},
-{id:60,n:'生薑',la:'Zingiber officinale',cat:'清熱解表類',sub:'解表',pr:'辛，微溫',me:'肺、脾、胃',fn:'解表散寒、溫中止嘔、化痰止咳',af:'我擁抱生命的暖意，驅散所有寒冷與不安',mo:'「第一道溫暖的防線。」',yo:'解表散寒，在寒意入侵時及時驅散。',img:'shengjiang',bs:'身體僵硬、畏風怕冷、頭痛不適'},
-{id:61,n:'茯苓',la:'Poria cocos',cat:'化濕消導類',sub:'利水滲濕',pr:'甘、淡，平',me:'心、脾、腎',fn:'利水滲濕、健脾安神',af:'我釋放不再需要的重擔，心靈安定如山',mo:'「排出多餘的負擔。」',yo:'利水滲濕，讓身心都變得輕盈。',img:'fuling',bs:'身體沉重、浮腫疲倦、頭腦昏沉'},
-{id:62,n:'薏苡仁',la:'Coix lacryma-jobi',cat:'化濕消導類',sub:'利水滲濕',pr:'甘、淡，微寒',me:'脾、胃、肺',fn:'利水滲濕、健脾止瀉、清熱排膿',af:'我清除所有積壓，恢復輕盈自在的狀態',mo:'「淨化內在的濁氣。」',yo:'利水滲濕，還給身體清爽的環境。',img:'yiyiren',bs:'身體沉重、浮腫疲倦、頭腦昏沉'},
-{id:63,n:'桔梗',la:'Platycodon grandiflorus',cat:'化濕消導類',sub:'化痰止咳',pr:'苦、辛，平',me:'肺',fn:'宣肺祛痰、利咽排膿',af:'我打開表達的通道，聲音清晰有力',mo:'「開啟表達的通道。」',yo:'宣肺祛痰，讓壓抑的聲音得以釋放。',img:'jiegeng',bs:'胸悶痰多、呼吸不暢、表達受阻'},
-{id:64,n:'杏仁',la:'Prunus armeniaca',cat:'化濕消導類',sub:'化痰止咳',pr:'苦，溫（有小毒）',me:'肺、大腸',fn:'止咳平喘、潤腸通便',af:'我順暢地排解情緒，讓氣息回歸自然',mo:'「潤滑生命的呼吸。」',yo:'止咳平喘，讓每一次呼吸都順暢自如。',img:'xingren',bs:'胸悶痰多、呼吸不暢、表達受阻'},
-{id:65,n:'貝母',la:'Fritillaria cirrhosa',cat:'化濕消導類',sub:'化痰止咳',pr:'苦、甘，微寒',me:'肺、心',fn:'清熱潤肺、化痰止咳',af:'我散去心中的凝結，讓哀傷轉化為力量',mo:'「化開心肺的痰結。」',yo:'清熱化痰，讓黏稠的鬱悶消散無蹤。',img:'beimu',bs:'胸悶痰多、呼吸不暢、表達受阻'},
-{id:66,n:'神曲',la:'Massa Medicata Fermentata',cat:'化濕消導類',sub:'消食',pr:'甘、辛，溫',me:'脾、胃',fn:'消食和胃、健脾進食',af:'我給予自己足夠空間，轉化所有經驗',mo:'「發酵出新的可能。」',yo:'消食和胃，將積壓的負擔轉化為養分。',img:'shenqu',bs:'腹脹不適、食慾不振、消化停滯'},
-{id:67,n:'萊菔子',la:'Raphanus sativus',cat:'化濕消導類',sub:'消食',pr:'辛、甘，平',me:'肺、脾、胃',fn:'消食除脹、降氣化痰',af:'我順暢地排解壓力，讓心靈恢復舒坦',mo:'「順勢而下的釋放。」',yo:'消食降氣，讓上衝的濁氣找到出口。',img:'laifuzi',bs:'腹脹不適、食慾不振、消化停滯'},
-{id:68,n:'雞內金',la:'Gallus gallus domesticus',cat:'化濕消導類',sub:'消食',pr:'甘，平',me:'脾、胃、小腸、膀胱',fn:'健胃消食、固精止遺',af:'我軟化內心的硬塊，讓能量自由流動',mo:'「磨碎所有的硬塊。」',yo:'健胃消食，再堅硬的積滯也能化解。',img:'jineijin',bs:'腹脹不適、食慾不振、消化停滯'},
-{id:69,n:'山楂',la:'Crataegus pinnatifida',cat:'化濕消導類',sub:'消食',pr:'酸、甘，微溫',me:'脾、胃、肝',fn:'消食化積、行氣散瘀',af:'我消化所有積累的負擔，輕盈邁向未來',mo:'「消化昨天的負擔。」',yo:'消食散瘀，別讓過去的沉重擋住明天的胃口。',img:'shanzha',bs:'腹脹不適、食慾不振、消化停滯'},
-{id:70,n:'麥芽',la:'Hordeum vulgare',cat:'化濕消導類',sub:'消食',pr:'甘，平',me:'脾、胃、肝',fn:'消食健胃、回乳消脹',af:'我尊重成長的節奏，享受當下的過程',mo:'「萌發新生的力量。」',yo:'消食健胃，如種子破土般消化停滯。',img:'maiya',bs:'腹脹不適、食慾不振、消化停滯'},
-{id:71,n:'琥珀',la:'Succinum',cat:'安神收澀類',sub:'安神',pr:'甘，平',me:'心、肝、小腸、膀胱',fn:'鎮驚安神、散瘀止血、利水通淋',af:'我找回靈魂的家園，內在平安無懼',mo:'「凝固的時光帶來寧靜。」',yo:'鎮驚安神，讓千萬年的沉澱守護你。',img:'hupo',bs:'心神不寧、失眠多夢、驚悸不安'},
-{id:72,n:'酸棗仁',la:'Ziziphus jujuba var. spinosa',cat:'安神收澀類',sub:'安神',pr:'甘、酸，平',me:'心、肝、膽',fn:'養心補肝、寧心安神、斂汗',af:'我的心神安寧，輕鬆進入修復的深眠',mo:'「在溫暖中入眠。」',yo:'養心益肝，為受驚的心蓋上一條安穩的被子。',img:'suanzaoren',bs:'心神不寧、失眠多夢、驚悸不安'},
-{id:73,n:'天麻',la:'Gastrodia elata',cat:'安神收澀類',sub:'平肝息風',pr:'甘，平',me:'肝',fn:'息風止痙、平抑肝陽',af:'我穩住內在的重心，找回平衡的方位',mo:'「在搖晃中找到平衡。」',yo:'息風止痙，讓動盪的內心穩定下來。',img:'tianma',bs:'頭暈目眩、情緒波動、肝火上炎'},
-{id:74,n:'牡蠣',la:'Ostrea gigas',cat:'安神收澀類',sub:'平肝息風',pr:'鹹，微寒',me:'肝、膽、腎',fn:'重鎮安神、平肝潛陽',af:'我軟化內心的堅硬，讓心神沉潛回歸',mo:'「收斂浮動的心神。」',yo:'重鎮安神，讓飄蕩的靈魂沉入安穩。',img:'muli',bs:'頭暈目眩、情緒波動、肝火上炎'},
-{id:75,n:'鉤藤',la:'Uncaria rhynchophylla',cat:'安神收澀類',sub:'平肝息風',pr:'甘，涼',me:'肝、心包',fn:'息風定驚、清熱平肝',af:'我放鬆臉部與心靈，平息焦躁的神經',mo:'「平息腦海的風暴。」',yo:'清熱息風，讓紛亂的思緒在鉤尖定格平靜。',img:'gouteng',bs:'頭暈目眩、情緒波動、肝火上炎'},
-{id:76,n:'地龍',la:'Pheretima aspergillum',cat:'安神收澀類',sub:'平肝息風',pr:'鹹，寒',me:'肝、脾、膀胱',fn:'清熱定驚、通絡、平喘、利尿',af:'我通達全身的經絡，與萬物重新連結',mo:'「從地底傳來的安定。」',yo:'清熱定驚，用大地的沉穩平息風暴。',img:'dilong',bs:'頭暈目眩、情緒波動、肝火上炎'},
-{id:77,n:'五味子',la:'Schisandra chinensis',cat:'安神收澀類',sub:'收澀',pr:'酸、甘，溫',me:'肺、心、腎',fn:'收斂固澀、益氣生津、補腎寧心',af:'我收攝散逸的能量，找回完整的自我',mo:'「守住完整的自己。」',yo:'五味具全，才是生命最真實且飽滿的樣子。',img:'wuweizi',bs:'精力渙散、容易流失、缺乏持續力'},
-{id:78,n:'蓮子',la:'Nelumbo nucifera (seed)',cat:'安神收澀類',sub:'收澀',pr:'甘、澀，平',me:'脾、腎、心',fn:'補脾止瀉、益腎止遺、養心安神',af:'我的心如蓮花般安穩，守護內在的純淨',mo:'「在淤泥中保持純淨。」',yo:'補脾養心，讓心如蓮花般出淤泥而不染。',img:'lianzi',bs:'精力渙散、容易流失、缺乏持續力'},
-{id:79,n:'芡實',la:'Euryale ferox',cat:'安神收澀類',sub:'收澀',pr:'甘、澀，平',me:'脾、腎',fn:'益腎固精、補脾止瀉',af:'我的生命根基堅實，在穩定中獲得滋養',mo:'「收住流失的精華。」',yo:'益腎固精，守護身體最珍貴的能量。',img:'qianshi',bs:'精力渙散、容易流失、缺乏持續力'},
-{id:80,n:'烏梅',la:'Prunus mume',cat:'安神收澀類',sub:'收澀',pr:'酸、澀，平',me:'肝、脾、肺、大腸',fn:'斂肺止咳、澀腸止瀉、安蛔',af:'我找回內在的平衡，優雅地收斂鋒芒',mo:'「接納生命中的酸甜。」',yo:'收斂固澀，酸澀過後的甘甜最能生津止渴。',img:'wumei',bs:'精力渙散、容易流失、缺乏持續力'},
-{id:81,n:'山茱萸',la:'Cornus officinalis',cat:'安神收澀類',sub:'收澀',pr:'酸、澀，微溫',me:'肝、腎',fn:'補益肝腎、收斂固脫',af:'我的能量飽滿固守，不再輕易流失',mo:'「把握住滑落的力量。」',yo:'補益肝腎，在流失前及時收斂。',img:'shanzhuyu',bs:'精力渙散、容易流失、缺乏持續力'}\n];\n
-const CC={"補益類":{c:"cc1",i:"🌱"},"理氣活血類":{c:"cc2",i:"🌸"},"清熱解表類":{c:"cc3",i:"❄️"},"化濕消導類":{c:"cc4",i:"💨"},"安神收澀類":{c:"cc5",i:"🌙"}};
-let drawn=new Set();try{drawn=new Set(JSON.parse(localStorage.getItem('tcm3')||'[]'))}catch(e){}
-function sav(){try{localStorage.setItem('tcm3',JSON.stringify([...drawn]))}catch(e){}}
-function go(id){document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('visible');s.classList.add('hidden')});setTimeout(()=>{const t=document.getElementById(id);t.classList.remove('hidden');t.classList.add('visible');if(id==='coll-screen')renderColl()},50)}
-let busy=false;
-function draw(){if(busy)return;busy=true;const cs=document.getElementById('cs');cs.classList.remove('floating');cs.classList.add('drawing');setTimeout(()=>{const h=H[Math.floor(Math.random()*H.length)];drawn.add(h.id);sav();showR(h);cs.classList.remove('drawing');cs.classList.add('floating');busy=false},1100)}
-function showR(h){
-const c=CC[h.cat];
-document.getElementById('rw').innerHTML=
-'<div class="'+c.c+'"><div class="r-card">'+
-'<div class="r-top">'+
-'<span class="cat-label">'+h.cat+'</span>'+
-'<span class="herb-name">'+h.n+'</span>'+
-'<span class="latin">'+h.la+'</span>'+
-'<div class="r-img-wrap"><img src="images/'+h.img+'.png" alt="'+h.n+'" onerror="this.style.display=\'none\';this.parentNode.innerHTML=\'<span class=no-img>'+c.i+'<br>'+h.n+'</span>\'"></div>'+
-'</div>'+
-'<div class="r-divider"><span class="dot"></span><span class="dot"></span><span class="line"></span><span class="diamond"></span><span class="line"></span><span class="dot"></span><span class="dot"></span></div>'+
-'<div class="r-bot">'+
-'<div class="r-row"><span class="rl">藥\u3000性</span><span class="rv">'+h.pr+'</span></div>'+
-'<div class="r-row"><span class="rl">歸\u3000經</span><span class="rv">'+h.me+'</span></div>'+
-'<div class="r-row"><span class="rl">功\u3000效</span><span class="rv">'+h.fn+'</span></div>'+
-'<div class="r-affirm"><p>'+h.af+'</p></div>'+
-'</div></div></div>'+
-'<div class="healing-box"><span class="qi">❝</span><p class="jinju">'+h.mo+'</p><p class="yaoli">──'+h.yo+'</p></div>'+
-'<div class="interp-box">'+
-'<div class="interp-header"><span>✦</span><h3>解讀整合</h3><span>✦</span></div>'+
-'<div class="interp-body">'+
-'<p>你的身體正在向你傳遞訊息，而<span class="ib-hl">'+h.n+'</span>出現在此刻絕非偶然。</p>'+
-'<p>'+h.n+'在中醫中具有「<span class="ib-hl">'+h.fn+'</span>」的作用，藥性為「<span class="ib-hl">'+h.pr+'，歸'+h.me+'</span>」。</p>'+
-'<p>這張牌提醒你關注身心的連結。當你經歷「'+h.bs+'」時，身體也會有相應的反應。</p>'+
-'<p class="ib-af">'+h.af+'</p>'+
-'<p class="ib-disc">🌿 溫馨提醒：這是心靈指引而非醫療建議。如有身體不適，請諮詢專業中醫師，讓古老的智慧與現代醫學相輔相成。</p>'+
-'</div></div>'+
-'<div class="act-row"><button class="act p" onclick="go(\'draw-screen\')">再抽一張</button><button class="act s" onclick="go(\'coll-screen\')">圖鑑</button></div>';
-go('result-screen');document.getElementById('result-screen').scrollTop=0}
-let aTab='全部';
-function renderColl(){
-document.getElementById('ccnt').textContent='已收集 '+drawn.size+' / '+H.length+' 味藥材';
-const cats=['全部',...Object.keys(CC)];
-document.getElementById('ctabs').innerHTML=cats.map(c=>'<span class="tab '+(aTab===c?'on':'')+'" onclick="aTab=\''+c+'\';renderColl()">'+c+'</span>').join('');
-const f=aTab==='全部'?H:H.filter(h=>h.cat===aTab);
-document.getElementById('hgrid').innerHTML=f.map(h=>{const d=drawn.has(h.id);return'<div class="hchip '+(d?'y':'n')+'" onclick="'+(d?'showR(H.find(x=>x.id==='+h.id+'))':'')+'">'+'<span class="cn">'+h.n+'</span><span class="sc">'+h.sub+'</span></div>'}).join('')}
-(function(){const c=document.getElementById('ptc');for(let i=0;i<12;i++){const p=document.createElement('div');p.className='pt';p.style.left=Math.random()*100+'%';p.style.animationDuration=(8+Math.random()*12)+'s';p.style.animationDelay=Math.random()*10+'s';p.style.width=p.style.height=(2+Math.random()*2.5)+'px';c.appendChild(p)}})();
-</script>\n</body>\n</html>
+var H=[{"id": 1, "n": "肉桂", "la": "Cinnamomum cassia", "cat": "補益類", "sub": "溫裡", "pr": "辛、甘，大熱", "me": "腎、脾、心、肝", "fn": "補火助陽、引火歸元", "af": "我內在的火焰明亮，溫暖照亮我的路", "mo": "「點燃心中的小火爐。」", "yo": "引火歸元，把焦慮轉化為溫暖心窩的能量。", "img": "rougui", "bs": "身體寒冷、手腳冰涼、精神不振"}, {"id": 2, "n": "乾薑", "la": "Zingiber officinale (dried)", "cat": "補益類", "sub": "溫裡", "pr": "辛，熱", "me": "脾、胃、腎、心、肺", "fn": "溫中散寒、回陽通脈、溫肺化飲", "af": "溫暖的能量融化寒冰，感受重新流動", "mo": "「從核心溫暖起來。」", "yo": "溫中散寒，讓冰封的內在重新流動。", "img": "ganjiang", "bs": "身體寒冷、手腳冰涼、精神不振"}, {"id": 3, "n": "丁香", "la": "Syzygium aromaticum", "cat": "補益類", "sub": "溫裡", "pr": "辛，溫", "me": "脾、胃、腎", "fn": "溫中降逆、補腎助陽", "af": "我接受生命的一切，順應自然的氣息", "mo": "「芬芳中的溫暖。」", "yo": "溫中降逆，用香氣化解胃中的寒涼翻騰。", "img": "dingxiang", "bs": "身體寒冷、手腳冰涼、精神不振"}, {"id": 4, "n": "小茴香", "la": "Foeniculum vulgare", "cat": "補益類", "sub": "溫裡", "pr": "辛，溫", "me": "肝、腎、脾、胃", "fn": "散寒止痛、理氣和胃", "af": "我的情緒自由流動，寒意在溫柔中解開", "mo": "「溫柔解開糾結。」", "yo": "散寒止痛，讓緊縮的腹中恢復舒展。", "img": "xiaohuixiang", "bs": "身體寒冷、手腳冰涼、精神不振"}, {"id": 5, "n": "吳茱萸", "la": "Evodia rutaecarpa", "cat": "補益類", "sub": "溫裡", "pr": "辛、苦，熱", "me": "肝、脾、胃、腎", "fn": "散寒止痛、降逆止嘔、助陽止瀉", "af": "我平息內在的混亂，讓平靜重新降臨", "mo": "「驅散深處的寒意。」", "yo": "散寒止痛，將藏在角落的寒氣一掃而空。", "img": "wuzhuyu", "bs": "身體寒冷、手腳冰涼、精神不振"}, {"id": 6, "n": "人參", "la": "Panax ginseng", "cat": "補益類", "sub": "補氣", "pr": "甘、微苦，微溫", "me": "脾、肺、心、腎", "fn": "大補元氣、安神益智", "af": "我的內在力量源源不絕，我值得被滋養", "mo": "「大補元氣，重啟核心。」", "yo": "當你感到空虛時，記得找回最原始的力量。", "img": "renshen", "bs": "疲倦乏力、氣短懶言、精神不濟"}, {"id": 7, "n": "黃耆", "la": "Astragalus membranaceus", "cat": "補益類", "sub": "補氣", "pr": "甘，微溫", "me": "脾、肺", "fn": "益氣固表、利尿托毒", "af": "我有堅固的能量屏障，保護我不受侵擾", "mo": "「為自己築起護城河。」", "yo": "補足了氣，外在的紛擾就再也傷不了你。", "img": "huangqi", "bs": "疲倦乏力、氣短懶言、精神不濟"}, {"id": 8, "n": "紅棗", "la": "Ziziphus jujuba", "cat": "補益類", "sub": "補氣", "pr": "甘，溫", "me": "脾、胃", "fn": "補中益氣、養血安神", "af": "我被溫柔包圍，內心感到安穩與滿足", "mo": "「給生活一點紅潤。」", "yo": "脾胃安穩了，心情也會跟著甜美起來。", "img": "hongzao", "bs": "疲倦乏力、氣短懶言、精神不濟"}, {"id": 9, "n": "山藥", "la": "Dioscorea opposita", "cat": "補益類", "sub": "補氣", "pr": "甘，平", "me": "脾、肺、腎", "fn": "補脾養胃、生津益肺", "af": "我能從容轉化生命經驗，成為成長養分", "mo": "「不溫不火的滋養。」", "yo": "最好的補給，是潤物無聲地融入日常。", "img": "shanyao", "bs": "疲倦乏力、氣短懶言、精神不濟"}, {"id": 10, "n": "靈芝", "la": "Ganoderma lucidum", "cat": "補益類", "sub": "補氣", "pr": "甘，平", "me": "心、肺、肝、腎", "fn": "補氣安神、止咳平喘", "af": "我與宇宙的智慧相連，內在平和而覺醒", "mo": "「與天地同呼吸。」", "yo": "補氣安神，開啟身心與宇宙的智慧連結。", "img": "lingzhi", "bs": "疲倦乏力、氣短懶言、精神不濟"}, {"id": 11, "n": "黨參", "la": "Codonopsis pilosula", "cat": "補益類", "sub": "補氣", "pr": "甘，平", "me": "脾、肺", "fn": "健脾益肺、養血生津", "af": "我以穩定的步伐前進，力量持續累積", "mo": "「每一天的日常，都值得細心補給。」", "yo": "平凡的積累，終能成就脾胃的底氣。", "img": "dangshen", "bs": "疲倦乏力、氣短懶言、精神不濟"}, {"id": 12, "n": "白朮", "la": "Atractylodes macrocephala", "cat": "補益類", "sub": "補氣", "pr": "苦、甘，溫", "me": "脾、胃", "fn": "健脾益氣、燥濕利水、止汗安胎", "af": "我的內在井然有序，清明而穩定", "mo": "「排解心中的濕重。」", "yo": "健脾化濕，讓沉重的心情恢復清爽。", "img": "baizhu", "bs": "疲倦乏力、氣短懶言、精神不濟"}, {"id": 13, "n": "西洋參", "la": "Panax quinquefolius", "cat": "補益類", "sub": "補氣", "pr": "甘、微苦，涼", "me": "心、肺、腎", "fn": "補氣養陰、清熱生津", "af": "我以清涼的方式滋養自己，恢復平靜", "mo": "「在冷靜中補給。」", "yo": "不需要燥進，也能在平和中養出滿滿的元氣。", "img": "xiyangshen", "bs": "疲倦乏力、氣短懶言、精神不濟"}, {"id": 14, "n": "甘草", "la": "Glycyrrhiza uralensis", "cat": "補益類", "sub": "補氣", "pr": "甘，平", "me": "心、肺、脾、胃", "fn": "補脾益氣、清熱解毒", "af": "我調和內外的一切，在圓滿中獲得自在", "mo": "「與世界達成和解。」", "yo": "調和諸藥的力量，是讓一切矛盾都化為圓滿。", "img": "gancao", "bs": "疲倦乏力、氣短懶言、精神不濟"}, {"id": 15, "n": "當歸", "la": "Angelica sinensis", "cat": "補益類", "sub": "補血", "pr": "甘、辛，溫", "me": "肝、心、脾", "fn": "補血活血、調經止痛", "af": "愛的能量在我體內流動，滋養每個細胞", "mo": "「讓愛流動，適時回歸。」", "yo": "活血補血，讓心底凝滯的委屈重新流動。", "img": "danggui", "bs": "面色蒼白、心悸失眠、情感空虛"}, {"id": 16, "n": "桂圓", "la": "Dimocarpus longan", "cat": "補益類", "sub": "補血", "pr": "甘，溫", "me": "心、脾", "fn": "補心安神、養血益脾", "af": "我的心安住當下，寧靜而圓滿", "mo": "「圓滿自己的心房。」", "yo": "補心安神，讓不安的靈魂找到溫暖歸宿。", "img": "guiyuan", "bs": "面色蒼白、心悸失眠、情感空虛"}, {"id": 17, "n": "制何首烏", "la": "Polygonum multiflorum (processed)", "cat": "補益類", "sub": "補血", "pr": "苦、甘、澀，微溫", "me": "肝、腎", "fn": "補肝腎、益精血、烏鬚髮", "af": "我擁抱生命的每個階段，智慧與活力並存", "mo": "「留住美好的光澤。」", "yo": "由內而外的滋養，能讓時光在髮間停留。", "img": "zhiheshouwu", "bs": "面色蒼白、心悸失眠、情感空虛"}, {"id": 18, "n": "阿膠", "la": "Equus asinus (Colla Corii Asini)", "cat": "補益類", "sub": "補血", "pr": "甘，平", "me": "肺、肝、腎", "fn": "補血滋陰、潤燥止血", "af": "我的生命如甘泉湧流，充滿滋潤與甜美", "mo": "「修補心靈的裂痕。」", "yo": "滋陰補血，為疲憊的靈魂覆蓋一層保護膜。", "img": "ejiao", "bs": "面色蒼白、心悸失眠、情感空虛"}, {"id": 19, "n": "白芍", "la": "Paeonia lactiflora", "cat": "補益類", "sub": "補血", "pr": "苦、酸，微寒", "me": "肝、脾", "fn": "養血調經、斂陰止汗", "af": "我的內在柔軟有彈性，優雅地面對壓力", "mo": "「溫柔地擁抱情緒。」", "yo": "柔肝止痛，讓緊繃的身體在愛中放鬆。", "img": "baishao", "bs": "面色蒼白、心悸失眠、情感空虛"}, {"id": 20, "n": "枸杞子", "la": "Lycium barbarum", "cat": "補益類", "sub": "補陰", "pr": "甘，平", "me": "肝、腎", "fn": "滋補肝腎、益精明目", "af": "我以清澈的雙眼看見生命中的美好", "mo": "「用清澈的眼看世界。」", "yo": "滋補肝腎，讓你的視野永遠明亮溫柔。", "img": "gouqizi", "bs": "口乾舌燥、心煩失眠、內熱焦躁"}, {"id": 21, "n": "熟地黃", "la": "Rehmannia glutinosa (processed)", "cat": "補益類", "sub": "補陰", "pr": "甘，微溫", "me": "肝、腎", "fn": "滋陰補血、益精填髓", "af": "我深深扎根於大地，內在充實而穩固", "mo": "「在深度中紮根。」", "yo": "滋陰填髓，在安靜中補足最深層的生命力。", "img": "shudihuang", "bs": "口乾舌燥、心煩失眠、內熱焦躁"}, {"id": 22, "n": "天門冬", "la": "Asparagus cochinchinensis", "cat": "補益類", "sub": "補陰", "pr": "甘、苦，寒", "me": "肺、腎", "fn": "養陰潤燥、清肺生津", "af": "我平息燥熱的情緒，恢復冰清般的冷靜", "mo": "「在乾涸中保持清涼。」", "yo": "養陰潤燥，即使烈日當空也能保持內心清潤。", "img": "tianmendong", "bs": "口乾舌燥、心煩失眠、內熱焦躁"}, {"id": 23, "n": "百合", "la": "Lilium brownii", "cat": "補益類", "sub": "補陰", "pr": "甘，微寒", "me": "心、肺", "fn": "養陰潤肺、清心安神", "af": "我的心如百合般純淨，在寧靜中綻放", "mo": "「純淨的心，自有力量。」", "yo": "養陰潤肺，讓心靈如百合般澄澈安寧。", "img": "baihe", "bs": "口乾舌燥、心煩失眠、內熱焦躁"}, {"id": 24, "n": "麥門冬", "la": "Ophiopogon japonicus", "cat": "補益類", "sub": "補陰", "pr": "甘、微苦，微寒", "me": "心、肺、胃", "fn": "養陰生津、潤肺清心", "af": "我以甘潤滋養心田，讓清涼泉水流過", "mo": "「滋潤每一寸乾涸。」", "yo": "養陰生津，為枯竭的心田注入清泉。", "img": "maimendong", "bs": "口乾舌燥、心煩失眠、內熱焦躁"}, {"id": 25, "n": "玉竹", "la": "Polygonatum odoratum", "cat": "補益類", "sub": "補陰", "pr": "甘，微寒", "me": "肺、胃", "fn": "養陰潤燥、生津止渴", "af": "我找回內在的潤澤，重新連結美的感知", "mo": "「柔韌地穿越乾旱。」", "yo": "養陰潤燥，溫柔而持久地滋養生命。", "img": "yuzhu", "bs": "口乾舌燥、心煩失眠、內熱焦躁"}, {"id": 26, "n": "冬蟲夏草", "la": "Cordyceps sinensis", "cat": "補益類", "sub": "補陽", "pr": "甘，平", "me": "肺、腎", "fn": "補肺益腎、止血化痰", "af": "我在蛻變中更加完整，生命不斷更新", "mo": "「跨越季節的等待。」", "yo": "在沉默中蛻變，只為補足生命最深刻的氣。", "img": "dongchongxiacao", "bs": "畏寒怕冷、腰膝酸軟、動力不足"}, {"id": 27, "n": "續斷", "la": "Dipsacus asperoides", "cat": "補益類", "sub": "補陽", "pr": "苦、辛，微溫", "me": "肝、腎", "fn": "補肝腎、強筋骨、續折傷", "af": "我溫柔撫平傷痛，讓勇氣重新連結", "mo": "「連結斷點，重新出發。」", "yo": "續筋接骨，受過的傷會讓你變得更強壯。", "img": "xuduan", "bs": "畏寒怕冷、腰膝酸軟、動力不足"}, {"id": 28, "n": "補骨脂", "la": "Psoralea corylifolia", "cat": "補益類", "sub": "補陽", "pr": "辛、苦，溫", "me": "腎、脾", "fn": "補腎壯陽、固精縮尿", "af": "我點燃內在的火種，照亮前行的道路", "mo": "「重建生命的骨架。」", "yo": "補腎壯陽，讓動搖的根基再次穩固。", "img": "buguzhi", "bs": "畏寒怕冷、腰膝酸軟、動力不足"}, {"id": 29, "n": "淫羊藿", "la": "Epimedium brevicornu", "cat": "補益類", "sub": "補陽", "pr": "辛、甘，溫", "me": "肝、腎", "fn": "補腎陽、強筋骨、祛風濕", "af": "我擁抱生命的熱情，展現強大的生命力", "mo": "「喚醒沉睡的熱情。」", "yo": "補腎陽強筋骨，重燃生命的火焰。", "img": "yinyanghuo", "bs": "畏寒怕冷、腰膝酸軟、動力不足"}, {"id": 30, "n": "肉蓯蓉", "la": "Cistanche deserticola", "cat": "補益類", "sub": "補陽", "pr": "甘、鹹，溫", "me": "腎、大腸", "fn": "補腎陽、益精血、潤腸通便", "af": "我恢復流暢的步調，讓生活充滿潤澤", "mo": "「沙漠中的生命力。」", "yo": "補腎益精，在貧瘠中依然綻放力量。", "img": "roucongrong", "bs": "畏寒怕冷、腰膝酸軟、動力不足"}, {"id": 31, "n": "杜仲", "la": "Eucommia ulmoides", "cat": "補益類", "sub": "補陽", "pr": "甘，溫", "me": "肝、腎", "fn": "補肝腎、強筋骨、安胎", "af": "我的意志堅韌強健，能承載生命的目標", "mo": "「韌性，是斷不了的連結。」", "yo": "強筋壯骨，內在的絲線能撐起受傷的你。", "img": "duzhong", "bs": "畏寒怕冷、腰膝酸軟、動力不足"}, {"id": 32, "n": "鹿茸", "la": "Cervus nippon (Cornu Cervi Pantotrichum)", "cat": "補益類", "sub": "補陽", "pr": "甘、鹹，溫", "me": "腎、肝", "fn": "壯腎陽、益精血、強筋骨", "af": "我承接金色的能量，展現自信與尊貴", "mo": "「蓬勃向上的生長力。」", "yo": "壯腎陽益精血，如春日鹿角般充滿生機。", "img": "lurong", "bs": "畏寒怕冷、腰膝酸軟、動力不足"}, {"id": 33, "n": "牛膝", "la": "Achyranthes bidentata", "cat": "理氣活血類", "sub": "活血", "pr": "苦、甘、酸，平", "me": "肝、腎", "fn": "逐瘀通經、補肝腎、引血下行", "af": "我將能量平穩下沉，腳踏實地感受大地", "mo": "「引導能量向下扎根。」", "yo": "引血下行，讓上衝的躁動回歸穩定。", "img": "niuxi", "bs": "情緒鬱結、胸悶刺痛、循環不暢"}, {"id": 34, "n": "三七", "la": "Panax notoginseng", "cat": "理氣活血類", "sub": "活血", "pr": "甘、微苦，溫", "me": "肝、胃", "fn": "散瘀止血、消腫定痛", "af": "我化解深層的瘀結，迎來全新的生命", "mo": "「止住傷口，化解舊痛。」", "yo": "散瘀止血，讓創傷不再是負擔。", "img": "sanqi", "bs": "情緒鬱結、胸悶刺痛、循環不暢"}, {"id": 35, "n": "桃仁", "la": "Prunus persica", "cat": "理氣活血類", "sub": "活血", "pr": "苦、甘，平", "me": "心、肝、大腸", "fn": "活血祛瘀、潤腸通便", "af": "我放下執著的停滯，開啟活力的循環", "mo": "「破開陳舊的堵塞。」", "yo": "活血祛瘀，打通被遺忘的通道。", "img": "taoren", "bs": "情緒鬱結、胸悶刺痛、循環不暢"}, {"id": 36, "n": "紅花", "la": "Carthamus tinctorius", "cat": "理氣活血類", "sub": "活血", "pr": "辛，溫", "me": "心、肝", "fn": "活血通經、散瘀止痛", "af": "我點燃生命的熱度，讓熱血重新沸騰", "mo": "「點燃流動的生機。」", "yo": "活血通經，讓停滯的血液再次奔流。", "img": "honghua", "bs": "情緒鬱結、胸悶刺痛、循環不暢"}, {"id": 37, "n": "益母草", "la": "Leonurus japonicus", "cat": "理氣活血類", "sub": "活血", "pr": "辛、苦，微寒", "me": "肝、心包、膀胱", "fn": "活血調經、利尿消腫", "af": "我溫柔對待自己，讓女性的慈愛滋長", "mo": "「母親般的守護。」", "yo": "活血調經，溫柔地照顧女性的身心。", "img": "yimucao", "bs": "情緒鬱結、胸悶刺痛、循環不暢"}, {"id": 38, "n": "川芎", "la": "Ligusticum chuanxiong", "cat": "理氣活血類", "sub": "活血", "pr": "辛，溫", "me": "肝、膽、心包", "fn": "活血行氣、祛風止痛", "af": "我的氣血暢通無阻，智慧在流動中閃耀", "mo": "「穿越阻礙的力量。」", "yo": "活血行氣，讓氣血突破所有障礙。", "img": "chuanxiong", "bs": "情緒鬱結、胸悶刺痛、循環不暢"}, {"id": 39, "n": "延胡索", "la": "Corydalis yanhusuo", "cat": "理氣活血類", "sub": "活血", "pr": "辛、苦，溫", "me": "肝、脾", "fn": "活血行氣、止痛", "af": "我切斷痛苦的連結，讓平安在體內擴散", "mo": "「直達痛點的解藥。」", "yo": "活血止痛，精準化解每一處疼痛。", "img": "yanhusuo", "bs": "情緒鬱結、胸悶刺痛、循環不暢"}, {"id": 40, "n": "丹參", "la": "Salvia miltiorrhiza", "cat": "理氣活血類", "sub": "活血", "pr": "苦，微寒", "me": "心、肝", "fn": "活血祛瘀、涼血消癰", "af": "我打開心靈的循環，讓愛自在地出入", "mo": "「一味抵三藥的力量。」", "yo": "活血祛瘀，全方位疏通心脈。", "img": "danshen", "bs": "情緒鬱結、胸悶刺痛、循環不暢"}, {"id": 41, "n": "枳殼", "la": "Citrus aurantium", "cat": "理氣活血類", "sub": "理氣", "pr": "苦、辛，微寒", "me": "脾、胃、大腸", "fn": "理氣寬中、行滯消脹", "af": "我放下對結果的執著，內心放鬆而通達", "mo": "「撐開壓縮的空間。」", "yo": "理氣寬中，讓被壓迫的胸腹重獲自由。", "img": "zhike", "bs": "胸悶脹氣、情緒壓抑、呼吸不暢"}, {"id": 42, "n": "木香", "la": "Aucklandia lappa", "cat": "理氣活血類", "sub": "理氣", "pr": "辛、苦，溫", "me": "脾、胃、大腸、膽", "fn": "行氣止痛、健脾消食", "af": "我撫平內在的緊繃，消化生命中的不安", "mo": "「讓氣息暢通無阻。」", "yo": "行氣止痛，疏通每一條受阻的經絡。", "img": "muxiang", "bs": "胸悶脹氣、情緒壓抑、呼吸不暢"}, {"id": 43, "n": "佩蘭", "la": "Eupatorium fortunei", "cat": "理氣活血類", "sub": "理氣", "pr": "辛，平", "me": "脾、胃、肺", "fn": "芳香化濕、醒脾開胃", "af": "我洗刷體內的濁氣，回歸清爽自在", "mo": "「清新喚醒沉睡的脾。」", "yo": "芳香化濕，讓混沌的身心恢復清明。", "img": "peilan", "bs": "胸悶脹氣、情緒壓抑、呼吸不暢"}, {"id": 44, "n": "陳皮", "la": "Citrus reticulata", "cat": "理氣活血類", "sub": "理氣", "pr": "苦、辛，溫", "me": "肺、脾", "fn": "理氣健脾、燥濕化痰", "af": "我讓氣機順暢流動，所有阻滯都被化解", "mo": "「疏通糾結的思緒。」", "yo": "理氣化痰，讓壓在心頭的沉悶煙消雲散。", "img": "chenpi", "bs": "胸悶脹氣、情緒壓抑、呼吸不暢"}, {"id": 45, "n": "香附", "la": "Cyperus rotundus", "cat": "理氣活血類", "sub": "理氣", "pr": "辛、微苦、微甘，平", "me": "肝、脾、三焦", "fn": "疏肝解鬱、理氣調經、止痛", "af": "我允許情緒自由流動，與身體和諧共處", "mo": "「解開情緒的鎖。」", "yo": "氣病之總司，為你推開鬱結已久的窗。", "img": "xiangfu", "bs": "胸悶脹氣、情緒壓抑、呼吸不暢"}, {"id": 46, "n": "玫瑰花", "la": "Rosa rugosa", "cat": "理氣活血類", "sub": "理氣", "pr": "甘、微苦，溫", "me": "肝、脾", "fn": "行氣解鬱、和血散瘀", "af": "我釋放壓抑的情緒，溫柔地擁抱自己", "mo": "「綻放心中的花園。」", "yo": "行氣解鬱，讓愛與美在心間流動。", "img": "meiguihua", "bs": "胸悶脹氣、情緒壓抑、呼吸不暢"}, {"id": 47, "n": "佛手", "la": "Citrus medica var. sarcodactylis", "cat": "理氣活血類", "sub": "理氣", "pr": "辛、苦，溫", "me": "肝、脾、胃、肺", "fn": "疏肝理氣、和胃止痛、燥濕化痰", "af": "我撥開情緒的迷霧，活出自由的樣貌", "mo": "「張開接納的雙手。」", "yo": "疏肝理氣，以開放的姿態擁抱生命。", "img": "foshou", "bs": "胸悶脹氣、情緒壓抑、呼吸不暢"}, {"id": 48, "n": "砂仁", "la": "Amomum villosum", "cat": "理氣活血類", "sub": "理氣", "pr": "辛，溫", "me": "脾、胃、腎", "fn": "化濕開胃、溫脾止瀉", "af": "我喚醒感官的喜悅，重新品味生活", "mo": "「開啟封閉的胃口。」", "yo": "化濕開胃，讓堵塞的消化重新運轉。", "img": "sharen", "bs": "胸悶脹氣、情緒壓抑、呼吸不暢"}, {"id": 49, "n": "金銀花", "la": "Lonicera japonica", "cat": "清熱解表類", "sub": "清熱", "pr": "甘，寒", "me": "肺、心、胃", "fn": "清熱解毒、疏散風熱", "af": "我釋放所有的毒素，讓內心清涼平靜", "mo": "「以清涼化解毒熱。」", "yo": "清熱解毒，將躁動的火焰轉為平靜。", "img": "jinyinhua", "bs": "心煩易怒、口乾舌燥、焦躁不安"}, {"id": 50, "n": "菊花", "la": "Chrysanthemum morifolium", "cat": "清熱解表類", "sub": "清熱", "pr": "甘、苦，微寒", "me": "肺、肝", "fn": "疏風清熱、平肝明目", "af": "我放下緊繃的視線，以平和心看待世界", "mo": "「在紛擾中保持清明。」", "yo": "疏風清熱，讓過熱的頭腦冷靜下來。", "img": "juhua", "bs": "心煩易怒、口乾舌燥、焦躁不安"}, {"id": 51, "n": "決明子", "la": "Cassia obtusifolia", "cat": "清熱解表類", "sub": "清熱", "pr": "甘、苦、鹹，微寒", "me": "肝、大腸", "fn": "清肝明目、潤腸通便", "af": "我清楚看見每個選擇，明智地做出決定", "mo": "「看清真相的勇氣。」", "yo": "清肝明目，撥開迷霧看見光明。", "img": "juemingzi", "bs": "心煩易怒、口乾舌燥、焦躁不安"}, {"id": 52, "n": "梔子", "la": "Gardenia jasminoides", "cat": "清熱解表類", "sub": "清熱", "pr": "苦，寒", "me": "心、肺、三焦", "fn": "瀉火除煩、清熱利濕、涼血解毒", "af": "我清走胸中的悶火，找回原本的寬廣", "mo": "「釋放心中的燥火。」", "yo": "瀉火除煩，讓焦躁的心歸於寧靜。", "img": "zhizi", "bs": "心煩易怒、口乾舌燥、焦躁不安"}, {"id": 53, "n": "生地黃", "la": "Rehmannia glutinosa (raw)", "cat": "清熱解表類", "sub": "清熱", "pr": "甘、苦，寒", "me": "心、肝、腎", "fn": "清熱涼血、養陰生津", "af": "我的陰陽調和平衡，內在清涼而滋潤", "mo": "「冷卻過熱的血液。」", "yo": "清熱涼血，讓沸騰的情緒平靜下來。", "img": "shengdihuang", "bs": "心煩易怒、口乾舌燥、焦躁不安"}, {"id": 54, "n": "知母", "la": "Anemarrhena asphodeloides", "cat": "清熱解表類", "sub": "清熱", "pr": "苦、甘，寒", "me": "肺、胃、腎", "fn": "清熱瀉火、滋陰潤燥", "af": "清涼甘露滋潤我的內在，焦慮隨之平息", "mo": "「以智慧降伏虛火。」", "yo": "清熱滋陰，用理性平息內在的燃燒。", "img": "zhimu", "bs": "心煩易怒、口乾舌燥、焦躁不安"}, {"id": 55, "n": "石膏", "la": "Gypsum Fibrosum", "cat": "清熱解表類", "sub": "清熱", "pr": "甘、辛，大寒", "me": "肺、胃", "fn": "清熱瀉火、除煩止渴", "af": "我降下憤怒的高溫，讓理智回歸平靜", "mo": "「鎮住狂奔的烈焰。」", "yo": "清熱瀉火，讓過度的熱情回歸理性。", "img": "shigao", "bs": "心煩易怒、口乾舌燥、焦躁不安"}, {"id": 56, "n": "玄參", "la": "Scrophularia ningpoensis", "cat": "清熱解表類", "sub": "清熱", "pr": "甘、苦、鹹，微寒", "me": "肺、胃、腎", "fn": "清熱涼血、滋陰降火、解毒散結", "af": "我平息燃燒的火焰，展現慈悲的語言", "mo": "「深入降火，滋養根本。」", "yo": "清熱涼血，解開藏在深處的結。", "img": "xuanshen", "bs": "心煩易怒、口乾舌燥、焦躁不安"}, {"id": 57, "n": "薄荷", "la": "Mentha haplocalyx", "cat": "清熱解表類", "sub": "解表", "pr": "辛，涼", "me": "肺、肝", "fn": "疏散風熱、疏肝解鬱", "af": "清新的風掠過心靈，我的思緒通透清明", "mo": "「一陣清風吹散鬱悶。」", "yo": "疏散風熱，讓窒悶的心胸豁然開朗。", "img": "bohe", "bs": "身體僵硬、畏風怕冷、頭痛不適"}, {"id": 58, "n": "桑葉", "la": "Morus alba", "cat": "清熱解表類", "sub": "解表", "pr": "甘、苦，寒", "me": "肺、肝", "fn": "疏散風熱、清肺潤燥", "af": "我疏散外在的燥熱，恢復內在的清明", "mo": "「輕柔地疏散燥熱。」", "yo": "疏散風熱，如秋葉般帶走多餘的火氣。", "img": "sangye", "bs": "身體僵硬、畏風怕冷、頭痛不適"}, {"id": 59, "n": "柴胡", "la": "Bupleurum chinense", "cat": "清熱解表類", "sub": "解表", "pr": "苦、辛，微寒", "me": "肝、膽、肺", "fn": "疏散退熱、疏肝解鬱、升舉陽氣", "af": "我在起伏中找到平衡，推開心窗見陽光", "mo": "「升起被壓抑的能量。」", "yo": "疏肝解鬱，讓下沉的氣機重新上揚。", "img": "chaihu", "bs": "身體僵硬、畏風怕冷、頭痛不適"}, {"id": 60, "n": "生薑", "la": "Zingiber officinale", "cat": "清熱解表類", "sub": "解表", "pr": "辛，微溫", "me": "肺、脾、胃", "fn": "解表散寒、溫中止嘔、化痰止咳", "af": "我擁抱生命的暖意，驅散所有寒冷與不安", "mo": "「第一道溫暖的防線。」", "yo": "解表散寒，在寒意入侵時及時驅散。", "img": "shengjiang", "bs": "身體僵硬、畏風怕冷、頭痛不適"}, {"id": 61, "n": "茯苓", "la": "Poria cocos", "cat": "化濕消導類", "sub": "利水滲濕", "pr": "甘、淡，平", "me": "心、脾、腎", "fn": "利水滲濕、健脾安神", "af": "我釋放不再需要的重擔，心靈安定如山", "mo": "「排出多餘的負擔。」", "yo": "利水滲濕，讓身心都變得輕盈。", "img": "fuling", "bs": "身體沉重、浮腫疲倦、頭腦昏沉"}, {"id": 62, "n": "薏苡仁", "la": "Coix lacryma-jobi", "cat": "化濕消導類", "sub": "利水滲濕", "pr": "甘、淡，微寒", "me": "脾、胃、肺", "fn": "利水滲濕、健脾止瀉、清熱排膿", "af": "我清除所有積壓，恢復輕盈自在的狀態", "mo": "「淨化內在的濁氣。」", "yo": "利水滲濕，還給身體清爽的環境。", "img": "yiyiren", "bs": "身體沉重、浮腫疲倦、頭腦昏沉"}, {"id": 63, "n": "桔梗", "la": "Platycodon grandiflorus", "cat": "化濕消導類", "sub": "化痰止咳", "pr": "苦、辛，平", "me": "肺", "fn": "宣肺祛痰、利咽排膿", "af": "我打開表達的通道，聲音清晰有力", "mo": "「開啟表達的通道。」", "yo": "宣肺祛痰，讓壓抑的聲音得以釋放。", "img": "jiegeng", "bs": "胸悶痰多、呼吸不暢、表達受阻"}, {"id": 64, "n": "杏仁", "la": "Prunus armeniaca", "cat": "化濕消導類", "sub": "化痰止咳", "pr": "苦，溫（有小毒）", "me": "肺、大腸", "fn": "止咳平喘、潤腸通便", "af": "我順暢地排解情緒，讓氣息回歸自然", "mo": "「潤滑生命的呼吸。」", "yo": "止咳平喘，讓每一次呼吸都順暢自如。", "img": "xingren", "bs": "胸悶痰多、呼吸不暢、表達受阻"}, {"id": 65, "n": "貝母", "la": "Fritillaria cirrhosa", "cat": "化濕消導類", "sub": "化痰止咳", "pr": "苦、甘，微寒", "me": "肺、心", "fn": "清熱潤肺、化痰止咳", "af": "我散去心中的凝結，讓哀傷轉化為力量", "mo": "「化開心肺的痰結。」", "yo": "清熱化痰，讓黏稠的鬱悶消散無蹤。", "img": "beimu", "bs": "胸悶痰多、呼吸不暢、表達受阻"}, {"id": 66, "n": "神曲", "la": "Massa Medicata Fermentata", "cat": "化濕消導類", "sub": "消食", "pr": "甘、辛，溫", "me": "脾、胃", "fn": "消食和胃、健脾進食", "af": "我給予自己足夠空間，轉化所有經驗", "mo": "「發酵出新的可能。」", "yo": "消食和胃，將積壓的負擔轉化為養分。", "img": "shenqu", "bs": "腹脹不適、食慾不振、消化停滯"}, {"id": 67, "n": "萊菔子", "la": "Raphanus sativus", "cat": "化濕消導類", "sub": "消食", "pr": "辛、甘，平", "me": "肺、脾、胃", "fn": "消食除脹、降氣化痰", "af": "我順暢地排解壓力，讓心靈恢復舒坦", "mo": "「順勢而下的釋放。」", "yo": "消食降氣，讓上衝的濁氣找到出口。", "img": "laifuzi", "bs": "腹脹不適、食慾不振、消化停滯"}, {"id": 68, "n": "雞內金", "la": "Gallus gallus domesticus", "cat": "化濕消導類", "sub": "消食", "pr": "甘，平", "me": "脾、胃、小腸、膀胱", "fn": "健胃消食、固精止遺", "af": "我軟化內心的硬塊，讓能量自由流動", "mo": "「磨碎所有的硬塊。」", "yo": "健胃消食，再堅硬的積滯也能化解。", "img": "jineijin", "bs": "腹脹不適、食慾不振、消化停滯"}, {"id": 69, "n": "山楂", "la": "Crataegus pinnatifida", "cat": "化濕消導類", "sub": "消食", "pr": "酸、甘，微溫", "me": "脾、胃、肝", "fn": "消食化積、行氣散瘀", "af": "我消化所有積累的負擔，輕盈邁向未來", "mo": "「消化昨天的負擔。」", "yo": "消食散瘀，別讓過去的沉重擋住明天的胃口。", "img": "shanzha", "bs": "腹脹不適、食慾不振、消化停滯"}, {"id": 70, "n": "麥芽", "la": "Hordeum vulgare", "cat": "化濕消導類", "sub": "消食", "pr": "甘，平", "me": "脾、胃、肝", "fn": "消食健胃、回乳消脹", "af": "我尊重成長的節奏，享受當下的過程", "mo": "「萌發新生的力量。」", "yo": "消食健胃，如種子破土般消化停滯。", "img": "maiya", "bs": "腹脹不適、食慾不振、消化停滯"}, {"id": 71, "n": "琥珀", "la": "Succinum", "cat": "安神收澀類", "sub": "安神", "pr": "甘，平", "me": "心、肝、小腸、膀胱", "fn": "鎮驚安神、散瘀止血、利水通淋", "af": "我找回靈魂的家園，內在平安無懼", "mo": "「凝固的時光帶來寧靜。」", "yo": "鎮驚安神，讓千萬年的沉澱守護你。", "img": "hupo", "bs": "心神不寧、失眠多夢、驚悸不安"}, {"id": 72, "n": "酸棗仁", "la": "Ziziphus jujuba var. spinosa", "cat": "安神收澀類", "sub": "安神", "pr": "甘、酸，平", "me": "心、肝、膽", "fn": "養心補肝、寧心安神、斂汗", "af": "我的心神安寧，輕鬆進入修復的深眠", "mo": "「在溫暖中入眠。」", "yo": "養心益肝，為受驚的心蓋上一條安穩的被子。", "img": "suanzaoren", "bs": "心神不寧、失眠多夢、驚悸不安"}, {"id": 73, "n": "天麻", "la": "Gastrodia elata", "cat": "安神收澀類", "sub": "平肝息風", "pr": "甘，平", "me": "肝", "fn": "息風止痙、平抑肝陽", "af": "我穩住內在的重心，找回平衡的方位", "mo": "「在搖晃中找到平衡。」", "yo": "息風止痙，讓動盪的內心穩定下來。", "img": "tianma", "bs": "頭暈目眩、情緒波動、肝火上炎"}, {"id": 74, "n": "牡蠣", "la": "Ostrea gigas", "cat": "安神收澀類", "sub": "平肝息風", "pr": "鹹，微寒", "me": "肝、膽、腎", "fn": "重鎮安神、平肝潛陽", "af": "我軟化內心的堅硬，讓心神沉潛回歸", "mo": "「收斂浮動的心神。」", "yo": "重鎮安神，讓飄蕩的靈魂沉入安穩。", "img": "muli", "bs": "頭暈目眩、情緒波動、肝火上炎"}, {"id": 75, "n": "鉤藤", "la": "Uncaria rhynchophylla", "cat": "安神收澀類", "sub": "平肝息風", "pr": "甘，涼", "me": "肝、心包", "fn": "息風定驚、清熱平肝", "af": "我放鬆臉部與心靈，平息焦躁的神經", "mo": "「平息腦海的風暴。」", "yo": "清熱息風，讓紛亂的思緒在鉤尖定格平靜。", "img": "gouteng", "bs": "頭暈目眩、情緒波動、肝火上炎"}, {"id": 76, "n": "地龍", "la": "Pheretima aspergillum", "cat": "安神收澀類", "sub": "平肝息風", "pr": "鹹，寒", "me": "肝、脾、膀胱", "fn": "清熱定驚、通絡、平喘、利尿", "af": "我通達全身的經絡，與萬物重新連結", "mo": "「從地底傳來的安定。」", "yo": "清熱定驚，用大地的沉穩平息風暴。", "img": "dilong", "bs": "頭暈目眩、情緒波動、肝火上炎"}, {"id": 77, "n": "五味子", "la": "Schisandra chinensis", "cat": "安神收澀類", "sub": "收澀", "pr": "酸、甘，溫", "me": "肺、心、腎", "fn": "收斂固澀、益氣生津、補腎寧心", "af": "我收攝散逸的能量，找回完整的自我", "mo": "「守住完整的自己。」", "yo": "五味具全，才是生命最真實且飽滿的樣子。", "img": "wuweizi", "bs": "精力渙散、容易流失、缺乏持續力"}, {"id": 78, "n": "蓮子", "la": "Nelumbo nucifera (seed)", "cat": "安神收澀類", "sub": "收澀", "pr": "甘、澀，平", "me": "脾、腎、心", "fn": "補脾止瀉、益腎止遺、養心安神", "af": "我的心如蓮花般安穩，守護內在的純淨", "mo": "「在淤泥中保持純淨。」", "yo": "補脾養心，讓心如蓮花般出淤泥而不染。", "img": "lianzi", "bs": "精力渙散、容易流失、缺乏持續力"}, {"id": 79, "n": "芡實", "la": "Euryale ferox", "cat": "安神收澀類", "sub": "收澀", "pr": "甘、澀，平", "me": "脾、腎", "fn": "益腎固精、補脾止瀉", "af": "我的生命根基堅實，在穩定中獲得滋養", "mo": "「收住流失的精華。」", "yo": "益腎固精，守護身體最珍貴的能量。", "img": "qianshi", "bs": "精力渙散、容易流失、缺乏持續力"}, {"id": 80, "n": "烏梅", "la": "Prunus mume", "cat": "安神收澀類", "sub": "收澀", "pr": "酸、澀，平", "me": "肝、脾、肺、大腸", "fn": "斂肺止咳、澀腸止瀉、安蛔", "af": "我找回內在的平衡，優雅地收斂鋒芒", "mo": "「接納生命中的酸甜。」", "yo": "收斂固澀，酸澀過後的甘甜最能生津止渴。", "img": "wumei", "bs": "精力渙散、容易流失、缺乏持續力"}, {"id": 81, "n": "山茱萸", "la": "Cornus officinalis", "cat": "安神收澀類", "sub": "收澀", "pr": "酸、澀，微溫", "me": "肝、腎", "fn": "補益肝腎、收斂固脫", "af": "我的能量飽滿固守，不再輕易流失", "mo": "「把握住滑落的力量。」", "yo": "補益肝腎，在流失前及時收斂。", "img": "shanzhuyu", "bs": "精力渙散、容易流失、缺乏持續力"}];
+
+var CC={"補益類":{c:"c1",i:"🌱"},"理氣活血類":{c:"c2",i:"🌸"},"清熱解表類":{c:"c3",i:"❄️"},"化濕消導類":{c:"c4",i:"💨"},"安神收澀類":{c:"c5",i:"🌙"}};
+var dn=new Set();try{dn=new Set(JSON.parse(localStorage.getItem("tcm5")||"[]"))}catch(e){}
+function sv(){try{localStorage.setItem("tcm5",JSON.stringify(Array.from(dn)))}catch(e){}}
+function go(id){var ss=document.querySelectorAll(".sc");for(var i=0;i<ss.length;i++){ss[i].classList.remove("v");ss[i].classList.add("h")}setTimeout(function(){var t=document.getElementById(id);t.classList.remove("h");t.classList.add("v");if(id==="co")rCo()},50)}
+var bsy=false;
+function draw(){if(bsy)return;bsy=true;var c=document.getElementById("csp");c.classList.remove("fl");c.classList.add("dr");setTimeout(function(){var h=H[Math.floor(Math.random()*H.length)];dn.add(h.id);sv();sR(h);c.classList.remove("dr");c.classList.add("fl");bsy=false},1100)}
+function e(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function sR(h){var c=CC[h.cat],el=document.getElementById("rw");
+el.innerHTML='<div class="'+c.c+'"><div class="rc"><div class="rt"><span class="cl">'+e(h.cat)+'</span><span class="hn">'+e(h.n)+'</span><span class="ln">'+e(h.la)+'</span><div class="ri"><img src="images/'+h.img+'.png" onerror="this.parentNode.innerHTML=\'<span class=ni>'+c.i+'<br>'+e(h.n)+'</span>\'"></div></div><div class="rd"><span class="dt"></span><span class="dt"></span><span class="li"></span><span class="dm"></span><span class="li"></span><span class="dt"></span><span class="dt"></span></div><div class="rb"><div class="rr"><span class="rl">藥\u3000性</span><span class="rv">'+e(h.pr)+'</span></div><div class="rr"><span class="rl">歸\u3000經</span><span class="rv">'+e(h.me)+'</span></div><div class="rr"><span class="rl">功\u3000效</span><span class="rv">'+e(h.fn)+'</span></div><div class="ra"><p>'+e(h.af)+'</p></div></div></div></div><div class="hb"><span class="qi">\u275D</span><p class="jj">'+e(h.mo)+'</p><p class="yl">\u2500\u2500'+e(h.yo)+'</p></div><div class="ib"><div class="ibh"><span>\u2726</span><h3>解讀整合</h3><span>\u2726</span></div><div class="ibb"><p>你的身體正在向你傳遞訊息，而<span class="hl">'+e(h.n)+'</span>出現在此刻絕非偶然。</p><p>'+e(h.n)+'在中醫中具有「<span class="hl">'+e(h.fn)+'</span>」的作用，藥性為「<span class="hl">'+e(h.pr)+'，歸'+e(h.me)+'</span>」。</p><p>這張牌提醒你關注身心的連結。當你經歷「'+e(h.bs)+'」時，身體也會有相應的反應。</p><p class="af">'+e(h.af)+'</p><p class="dc">\uD83C\uDF3F 溫馨提醒：這是心靈指引而非醫療建議。如有身體不適，請諮詢專業中醫師，讓古老的智慧與現代醫學相輔相成。</p></div></div><div class="ar"><button class="ab p" onclick="go(\'ds\')">再抽一張</button><button class="ab s" onclick="go(\'co\')">圖鑑</button></div>';
+go("rs");document.getElementById("rs").scrollTop=0}
+var aT="全部";
+function rCo(){document.getElementById("ccnt").textContent="已收集 "+dn.size+" / "+H.length+" 味藥材";var cs=["全部","補益類","理氣活血類","清熱解表類","化濕消導類","安神收澀類"];document.getElementById("ctbs").innerHTML=cs.map(function(c){return '<span class="tb '+(aT===c?"on":"")+'" onclick="aT=\''+c+'\';rCo()">'+c+"</span>"}).join("");var f=aT==="全部"?H:H.filter(function(x){return x.cat===aT});document.getElementById("hg").innerHTML=f.map(function(h){var d=dn.has(h.id);return '<div class="hc '+(d?"y":"n")+'" onclick="'+(d?"sR(H.find(function(x){return x.id==="+h.id+"}))":'')+'"><span class="nm">'+e(h.n)+'</span><span class="su">'+e(h.sub)+"</span></div>"}).join("")}
+(function(){var c=document.getElementById("ptc");for(var i=0;i<12;i++){var p=document.createElement("div");p.className="pt";p.style.left=Math.random()*100+"%";p.style.animationDuration=(8+Math.random()*12)+"s";p.style.animationDelay=Math.random()*10+"s";p.style.width=p.style.height=(2+Math.random()*2.5)+"px";c.appendChild(p)}})();
+</script></body></html>
