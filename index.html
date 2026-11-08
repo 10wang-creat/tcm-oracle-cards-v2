@@ -172,8 +172,13 @@ var img=r[3],p=PC[h.cat]||PC["補益類"],W=1080,Hh=st?1920:1350,cv=document.cre
 c.fillStyle="#f0eef3";c.fillRect(0,0,W,Hh);
 var bg=c.createRadialGradient(W*.2,Hh*.1,0,W*.2,Hh*.1,W*.9);bg.addColorStop(0,p[2]+"55");bg.addColorStop(1,"rgba(240,238,243,0)");c.fillStyle=bg;c.fillRect(0,0,W,Hh);
 var bg2=c.createRadialGradient(W*.85,Hh*.9,0,W*.85,Hh*.9,W*.8);bg2.addColorStop(0,"rgba(137,129,194,.18)");bg2.addColorStop(1,"rgba(240,238,243,0)");c.fillStyle=bg2;c.fillRect(0,0,W,Hh);
-var cw=st?700:600,cx=(W-cw)/2,cy=st?200:70,pad=st?44:40,iw=cw-pad*2,ns=st?92:78,cs=st?26:24,ls=st?28:26,bodyH=st?330:276;
-var hdr=pad+cs+22+ns+ls+16+30,topH=hdr+iw+60,ch=topH+bodyH;
+var cw=st?700:600,cx=(W-cw)/2,cy=st?200:70,pad=st?44:40,iw=cw-pad*2,ns=st?92:78,cs=st?26:24,ls=st?28:26;
+var fs=st?30:28,lh=st?44:40,gap=st?12:8,vw=cw-pad*2-(st?150:140),rows=[["藥　性",h.pr],["歸　經",h.me],["功　效",h.fn]];
+c.font="400 "+fs+"px WenKai";c.letterSpacing="0px";var rowsH=0;rows.forEach(function(r){rowsH+=Math.min(2,wrapT(c,r[1],vw).length)*lh+gap});
+c.font="400 "+(st?32:29)+"px WenKai";var afH=Math.min(2,wrapT(c,h.af,cw-pad*2).length)*(st?50:44);
+var bodyH=(st?56:50)-fs+rowsH-gap+(st?60:54)-(st?32:29)+afH+(st?44:40);
+var hdr=pad+cs+22+ns+ls+16+30,quoteH=st?330:150,over=cy+hdr+iw+60+bodyH+quoteH-Hh;if(over>0)iw-=over;
+var topH=hdr+iw+60,ch=topH+bodyH;
 c.save();c.shadowColor="rgba(0,0,0,.18)";c.shadowBlur=60;c.shadowOffsetY=24;rr(c,cx,cy,cw,ch,36);c.fillStyle="#fff";c.fill();c.restore();
 c.save();rr(c,cx,cy,cw,ch,36);c.clip();
 var g=c.createLinearGradient(0,cy,0,cy+topH);g.addColorStop(0,p[0]);g.addColorStop(.6,p[1]);g.addColorStop(1,p[2]);c.fillStyle=g;c.fillRect(cx,cy,cw,topH);
@@ -181,11 +186,11 @@ c.fillStyle=p[3];c.fillRect(cx,cy+topH,cw,bodyH);
 c.textAlign="center";c.textBaseline="alphabetic";c.fillStyle="rgba(255,255,255,.88)";c.font="400 "+cs+"px WenKai";c.letterSpacing="8px";c.fillText(h.cat,W/2+4,cy+pad+cs);
 c.fillStyle="#fff";c.font="500 "+ns+"px WenKai";c.letterSpacing="10px";c.fillText(h.n,W/2+5,cy+pad+cs+22+ns);
 c.fillStyle="rgba(255,255,255,.72)";c.font="300 "+ls+"px WenKai";c.letterSpacing="1px";c.fillText(h.la,W/2,cy+pad+cs+22+ns+ls+16);
-var iy=cy+hdr;rr(c,cx+pad,iy,iw,iw,24);c.fillStyle="#fff";c.fill();
-if(img){var sc=Math.min(iw*.92/img.width,iw*.92/img.height),dw=img.width*sc,dh=img.height*sc;c.drawImage(img,cx+pad+(iw-dw)/2,iy+(iw-dh)/2,dw,dh)}
+var iy=cy+hdr,ix=(W-iw)/2;rr(c,ix,iy,iw,iw,24);c.fillStyle="#fff";c.fill();
+if(img){var sc=Math.min(iw*.92/img.width,iw*.92/img.height),dw=img.width*sc,dh=img.height*sc;c.drawImage(img,ix+(iw-dw)/2,iy+(iw-dh)/2,dw,dh)}
 var dy=cy+topH-30;c.fillStyle=p[1];c.beginPath();c.arc(W/2-110,dy,5,0,7);c.arc(W/2-90,dy,5,0,7);c.arc(W/2+90,dy,5,0,7);c.arc(W/2+110,dy,5,0,7);c.fill();c.fillRect(W/2-72,dy-1,54,2);c.fillRect(W/2+18,dy-1,54,2);c.save();c.translate(W/2,dy);c.rotate(Math.PI/4);c.fillRect(-7,-7,14,14);c.restore();
-c.textAlign="left";c.letterSpacing="0px";var fs=st?30:28,lh=st?44:40,by=cy+topH+(st?56:50),lx=cx+pad+6,vx=cx+pad+(st?150:140),vw=cw-pad*2-(st?150:140);
-[["藥　性",h.pr],["歸　經",h.me],["功　效",h.fn]].forEach(function(row){c.fillStyle=p[5];c.font="500 "+fs+"px WenKai";c.fillText(row[0],lx,by);c.fillStyle=p[4];c.font="400 "+fs+"px WenKai";var ny=drawT(c,row[1],vx,by,vw,lh,2);by=ny+(st?12:8)});
+c.textAlign="left";c.letterSpacing="0px";var by=cy+topH+(st?56:50),lx=cx+pad+6,vx=cx+pad+(st?150:140);
+rows.forEach(function(row){c.fillStyle=p[5];c.font="500 "+fs+"px WenKai";c.fillText(row[0],lx,by);c.fillStyle=p[4];c.font="400 "+fs+"px WenKai";var ny=drawT(c,row[1],vx,by,vw,lh,2);by=ny+gap});
 c.strokeStyle=p[2]+"99";c.setLineDash([6,8]);c.lineWidth=2;c.beginPath();c.moveTo(cx+pad,by+4);c.lineTo(cx+cw-pad,by+4);c.stroke();c.setLineDash([]);
 c.textAlign="center";c.fillStyle=p[4];c.font="400 "+(st?32:29)+"px WenKai";drawT(c,h.af,W/2,by+(st?60:54),cw-pad*2,st?50:44,2);
 c.restore();
