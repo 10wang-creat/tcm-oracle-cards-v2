@@ -19,13 +19,13 @@
 <meta name="theme-color" content="#f0eef3">
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="preload" as="font" type="font/woff2" href="fonts/wenkai-400.294e296f.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="fonts/wenkai-500.b2b424ad.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/wenkai-400.36e31935.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/wenkai-500.ff611b52.woff2" crossorigin>
 <link rel="preload" as="image" href="images/card_back.webp">
 <style>
 @font-face{font-family:'WenKai';font-weight:300;font-style:normal;font-display:swap;src:url(fonts/wenkai-300.51b03292.woff2) format('woff2')}
-@font-face{font-family:'WenKai';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/wenkai-400.294e296f.woff2) format('woff2')}
-@font-face{font-family:'WenKai';font-weight:500 900;font-style:normal;font-display:swap;src:url(fonts/wenkai-500.b2b424ad.woff2) format('woff2')}
+@font-face{font-family:'WenKai';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/wenkai-400.36e31935.woff2) format('woff2')}
+@font-face{font-family:'WenKai';font-weight:500 900;font-style:normal;font-display:swap;src:url(fonts/wenkai-500.ff611b52.woff2) format('woff2')}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--g:#9db6a8;--gl:#c9e0d2;--gd:#567565;--cr:#f0eef3;--i:#34435e;--il:#5c6b80}
 html,body{width:100%;min-height:100dvh;font-family:'WenKai','LXGW WenKai TC','Noto Sans TC',sans-serif;background:var(--cr);color:var(--i);overflow-x:hidden}
@@ -116,10 +116,17 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .tst{position:fixed;left:50%;bottom:max(28px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--i);color:var(--cr);font-size:.85rem;letter-spacing:.1em;padding:10px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.18)}.tst.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .rst{font-size:.75rem;color:var(--il);opacity:.55;background:none;border:none;cursor:pointer;margin-top:4px;letter-spacing:.08em}.rst:hover{opacity:1;color:var(--gd)}
 .bk{bottom:max(20px,env(safe-area-inset-bottom))}
+.shm{position:fixed;inset:0;background:rgba(52,67,94,.35);backdrop-filter:blur(4px);z-index:40;opacity:0;pointer-events:none;transition:opacity .25s}.shm.on{opacity:1;pointer-events:auto}
+.shs{position:fixed;left:50%;bottom:0;transform:translate(-50%,110%);width:min(100%,460px);background:var(--cr);border-radius:20px 20px 0 0;padding:18px 18px max(22px,env(safe-area-inset-bottom));z-index:41;transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 -10px 40px rgba(0,0,0,.15)}.shs.on{transform:translate(-50%,0)}
+.shs h4{font-size:.95rem;letter-spacing:.2em;color:var(--gd);text-align:center;margin-bottom:14px;font-weight:500}
+.shb{display:flex;align-items:center;gap:12px;width:100%;padding:13px 16px;margin-bottom:8px;border-radius:12px;border:1px solid rgba(157,182,168,.25);background:rgba(255,255,255,.7);color:var(--i);font-size:.92rem;letter-spacing:.06em;cursor:pointer;text-align:left;transition:all .25s}.shb:hover{border-color:var(--g);background:#fff}.shb small{margin-left:auto;font-size:.72rem;color:var(--il);opacity:.7}
+.shb.x{justify-content:center;background:none;border-color:transparent;color:var(--il);margin-top:4px;margin-bottom:0}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head><body>
 <div class="tst" id="tst" role="status" aria-live="polite"></div>
+<div class="shm" id="shm" onclick="shX()"></div>
+<div class="shs" id="shs" role="dialog" aria-label="分享"><h4>分享這張牌</h4><button class="shb" onclick="shImg('story')">🌿 分享圖片<small>限時動態 9:16</small></button><button class="shb" onclick="shImg('post')">🖼 分享圖片<small>貼文 4:5</small></button><button class="shb" onclick="shLink()">🔗 複製連結<small>網頁版</small></button><button class="shb x" onclick="shX()">取消</button></div>
 <div class="ptc" id="ptc"></div>
 <div class="sc v" id="wl">
 <div class="br"><span class="gl">本草心語</span><span class="sb">Herbal Heart Language</span></div>
@@ -151,7 +158,47 @@ function show(id){var ss=document.querySelectorAll(".sc");for(var i=0;i<ss.lengt
 function go(id,hid){var u=location.pathname+(id==="wl"?"":(id==="rs"&&hid?"?c="+hid:"#"+id));try{history.pushState({s:id,h:hid||null},"",u)}catch(e){}show(id)}
 window.addEventListener("popstate",function(ev){var st=ev.state;if(!st){show("wl");return}if(st.s==="rs"&&st.h){var h=H.find(function(x){return x.id===st.h});if(h){sR(h,true);return}}show(st.s==="rs"?"wl":st.s)});
 var tT;function toast(m){var t=document.getElementById("tst");t.textContent=m;t.classList.add("on");clearTimeout(tT);tT=setTimeout(function(){t.classList.remove("on")},2200)}
-function shareC(id){var h=H.find(function(x){return x.id===id});if(!h)return;var u=location.origin+location.pathname+"?c="+h.id,tx="本草心語｜"+h.n+" "+h.mo;if(navigator.share){navigator.share({title:"本草心語 ─ "+h.n,text:tx,url:u}).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){toast("連結已複製")},function(){toast(u)})}else{prompt("複製這張牌的連結",u)}}
+var SH=null,PC={"補益類":["#3e5c4e","#5f7d6c","#8fae9d","#f0f5f2","#34493e","#46604f"],"理氣活血類":["#7d4460","#a4688a","#cb96b5","#f9f1f5","#4a2c3d","#8a4e6e"],"清熱解表類":["#3d5a7e","#6d93c8","#aac9e8","#eef3fa","#2c3d55","#3d5a7e"],"化濕消導類":["#54626e","#7e8fa0","#aebfcd","#f2f5f8","#333e48","#54626e"],"安神收澀類":["#575084","#8981c2","#bbadd8","#f4f1f9","#372f52","#5a5080"]};
+function shareC(id){SH=H.find(function(x){return x.id===id});if(!SH)return;document.getElementById("shm").classList.add("on");document.getElementById("shs").classList.add("on")}
+function shX(){document.getElementById("shm").classList.remove("on");document.getElementById("shs").classList.remove("on")}
+function shUrl(h){return location.origin+location.pathname+"?c="+h.id}
+function shLink(){var h=SH;shX();if(!h)return;var u=shUrl(h),tx="本草心語｜"+h.n+" "+h.mo;if(navigator.share&&/Mobi|Android/i.test(navigator.userAgent)){navigator.share({title:"本草心語 ─ "+h.n,text:tx,url:u}).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){toast("連結已複製")},function(){prompt("複製這張牌的連結",u)})}else{prompt("複製這張牌的連結",u)}}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function wrapT(c,t,mw){var ls=[],cur="";for(var i=0;i<t.length;i++){var ch=t[i];if(ch==="\n"){ls.push(cur);cur="";continue}var tr=cur+ch;if(c.measureText(tr).width>mw&&cur){ls.push(cur);cur=ch}else cur=tr}if(cur)ls.push(cur);return ls}
+function drawT(c,t,x,y,mw,lh,max){var ls=wrapT(c,t,mw);if(max&&ls.length>max){ls=ls.slice(0,max);ls[max-1]=ls[max-1].slice(0,-1)+"…"}for(var i=0;i<ls.length;i++)c.fillText(ls[i],x,y+i*lh);return y+ls.length*lh}
+function ldImg(src){return new Promise(function(res){var i=new Image();i.onload=function(){res(i)};i.onerror=function(){res(null)};i.src=src})}
+function mkCard(h,mode){var st=mode==="story";return Promise.all([document.fonts.load("500 60px WenKai"),document.fonts.load("400 40px WenKai"),document.fonts.load("300 30px WenKai"),ldImg("images/"+h.img+".webp")]).then(function(r){
+var img=r[3],p=PC[h.cat]||PC["補益類"],W=1080,Hh=st?1920:1350,cv=document.createElement("canvas");cv.width=W;cv.height=Hh;var c=cv.getContext("2d");
+c.fillStyle="#f0eef3";c.fillRect(0,0,W,Hh);
+var bg=c.createRadialGradient(W*.2,Hh*.1,0,W*.2,Hh*.1,W*.9);bg.addColorStop(0,p[2]+"55");bg.addColorStop(1,"rgba(240,238,243,0)");c.fillStyle=bg;c.fillRect(0,0,W,Hh);
+var bg2=c.createRadialGradient(W*.85,Hh*.9,0,W*.85,Hh*.9,W*.8);bg2.addColorStop(0,"rgba(137,129,194,.18)");bg2.addColorStop(1,"rgba(240,238,243,0)");c.fillStyle=bg2;c.fillRect(0,0,W,Hh);
+var cw=st?700:600,cx=(W-cw)/2,cy=st?200:70,pad=st?44:40,iw=cw-pad*2,ns=st?92:78,cs=st?26:24,ls=st?28:26,bodyH=st?330:276;
+var hdr=pad+cs+22+ns+ls+16+30,topH=hdr+iw+60,ch=topH+bodyH;
+c.save();c.shadowColor="rgba(0,0,0,.18)";c.shadowBlur=60;c.shadowOffsetY=24;rr(c,cx,cy,cw,ch,36);c.fillStyle="#fff";c.fill();c.restore();
+c.save();rr(c,cx,cy,cw,ch,36);c.clip();
+var g=c.createLinearGradient(0,cy,0,cy+topH);g.addColorStop(0,p[0]);g.addColorStop(.6,p[1]);g.addColorStop(1,p[2]);c.fillStyle=g;c.fillRect(cx,cy,cw,topH);
+c.fillStyle=p[3];c.fillRect(cx,cy+topH,cw,bodyH);
+c.textAlign="center";c.textBaseline="alphabetic";c.fillStyle="rgba(255,255,255,.88)";c.font="400 "+cs+"px WenKai";c.letterSpacing="8px";c.fillText(h.cat,W/2+4,cy+pad+cs);
+c.fillStyle="#fff";c.font="500 "+ns+"px WenKai";c.letterSpacing="10px";c.fillText(h.n,W/2+5,cy+pad+cs+22+ns);
+c.fillStyle="rgba(255,255,255,.72)";c.font="300 "+ls+"px WenKai";c.letterSpacing="1px";c.fillText(h.la,W/2,cy+pad+cs+22+ns+ls+16);
+var iy=cy+hdr;rr(c,cx+pad,iy,iw,iw,24);c.fillStyle="#fff";c.fill();
+if(img){var sc=Math.min(iw*.92/img.width,iw*.92/img.height),dw=img.width*sc,dh=img.height*sc;c.drawImage(img,cx+pad+(iw-dw)/2,iy+(iw-dh)/2,dw,dh)}
+var dy=cy+topH-30;c.fillStyle=p[1];c.beginPath();c.arc(W/2-110,dy,5,0,7);c.arc(W/2-90,dy,5,0,7);c.arc(W/2+90,dy,5,0,7);c.arc(W/2+110,dy,5,0,7);c.fill();c.fillRect(W/2-72,dy-1,54,2);c.fillRect(W/2+18,dy-1,54,2);c.save();c.translate(W/2,dy);c.rotate(Math.PI/4);c.fillRect(-7,-7,14,14);c.restore();
+c.textAlign="left";c.letterSpacing="0px";var fs=st?30:28,lh=st?44:40,by=cy+topH+(st?56:50),lx=cx+pad+6,vx=cx+pad+(st?150:140),vw=cw-pad*2-(st?150:140);
+[["藥　性",h.pr],["歸　經",h.me],["功　效",h.fn]].forEach(function(row){c.fillStyle=p[5];c.font="500 "+fs+"px WenKai";c.fillText(row[0],lx,by);c.fillStyle=p[4];c.font="400 "+fs+"px WenKai";var ny=drawT(c,row[1],vx,by,vw,lh,2);by=ny+(st?12:8)});
+c.strokeStyle=p[2]+"99";c.setLineDash([6,8]);c.lineWidth=2;c.beginPath();c.moveTo(cx+pad,by+4);c.lineTo(cx+cw-pad,by+4);c.stroke();c.setLineDash([]);
+c.textAlign="center";c.fillStyle=p[4];c.font="400 "+(st?32:29)+"px WenKai";drawT(c,h.af,W/2,by+(st?60:54),cw-pad*2,st?50:44,2);
+c.restore();
+var qy=cy+ch+(st?120:84);c.textAlign="center";c.fillStyle="#34435e";c.font="500 "+(st?48:40)+"px WenKai";c.letterSpacing="2px";var qe=drawT(c,h.mo,W/2,qy,W-200,st?72:58,2);
+if(st){c.fillStyle="#5c6b80";c.font="400 32px WenKai";c.letterSpacing="1px";drawT(c,"──"+h.yo,W/2,qe+28,W-220,52,2)}
+c.fillStyle="rgba(92,107,128,.6)";c.font="400 24px WenKai";c.letterSpacing="3px";c.fillText("本草心語 · tcm-oracle-cards.vercel.app",W/2,Hh-(st?96:40));
+return new Promise(function(res){cv.toBlob(res,"image/png")})})}
+var shB=false;
+function shImg(mode){var h=SH;shX();if(!h||shB)return;shB=true;toast("正在製作圖片…");
+mkCard(h,mode).then(function(bl){shB=false;if(!bl){toast("圖片製作失敗");return}var fn="本草心語_"+h.n+(mode==="story"?"_限動":"")+".png",f=new File([bl],fn,{type:"image/png"});
+if(navigator.canShare&&navigator.canShare({files:[f]})){return navigator.share({files:[f],title:"本草心語 ─ "+h.n,text:h.n+" "+h.mo+" "+shUrl(h)}).catch(function(e){if(e&&e.name!=="AbortError")dl(bl,fn)})}
+dl(bl,fn);toast("圖片已下載")}).catch(function(){shB=false;toast("圖片製作失敗")})}
+function dl(bl,fn){var a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download=fn;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},2000)}
 function rsAll(){if(!confirm("確定要清空目前的收集紀錄嗎？"))return;dn=new Set();sv();rCo();toast("已重新開始")}
 function preI(src){return new Promise(function(r){var i=new Image();i.onload=i.onerror=r;i.src=src;setTimeout(r,1500)})}
 var bsy=false;
